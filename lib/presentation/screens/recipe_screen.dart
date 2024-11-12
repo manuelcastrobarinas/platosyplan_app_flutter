@@ -139,7 +139,7 @@ class _ButtonToReditectSteps extends StatelessWidget {
           Icon(Icons.ads_click, color: Theme.of(context).primaryColor),
         ]
       ),
-      onPressed: (){}, //TODO: DIRIGIR AL PASO A PASO
+      onPressed: () => Navigator.pushNamed(context, 'cookingsteps')
     );
   }
 }

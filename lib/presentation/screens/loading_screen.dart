@@ -59,7 +59,7 @@ class LoadingScreen extends StatelessWidget {
                 height: 50,
                 color : Theme.of(context).primaryColor,
                 shape : RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, 'recipe'),
                 child : const Text('Siguiente', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 17), maxLines: 1),
               ),
             )

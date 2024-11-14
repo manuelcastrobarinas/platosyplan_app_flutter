@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:platosyplan/bloc/slidershow/slidershow_bloc.dart';
+import 'package:platosyplan/bloc/steps/steps_bloc.dart';
 import 'package:platosyplan/routes/routes.dart';
 
 void main() {
@@ -8,6 +9,7 @@ void main() {
     MultiBlocProvider(
     providers: [
       BlocProvider<SlidershowBloc>(create: (BuildContext context) => SlidershowBloc()),
+      BlocProvider<StepsBloc>     (create: (BuildContext context) => StepsBloc(slideshowBloc: context.read<SlidershowBloc>() )), //INYECCION DE UN BLOC EN OTRO
     ],
     child: const MyApp()
     )

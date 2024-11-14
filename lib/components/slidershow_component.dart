@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:platosyplan/bloc/slidershow/slidershow_bloc.dart';
 
 class SlideshowComponent extends StatelessWidget {
-
+  final void Function()? changeIndexItemGenericBloc;
   final List<Widget> slides;
   final bool   dotsUp;
   final Color  primaryColor;
@@ -11,15 +11,17 @@ class SlideshowComponent extends StatelessWidget {
   final double bulletPrimary;
   final double bulletSecondary;
 
-  const SlideshowComponent({
+  SlideshowComponent({
     super.key, 
     required this.slides,
+    required BuildContext context,
     this.dotsUp          = false,
-    this.primaryColor    = Colors.blue,
+    Color? primaryColor,
     this.secondaryColor  = Colors.grey,
     this.bulletPrimary   = 12.0,
     this.bulletSecondary = 12.0,
-  });
+    this.changeIndexItemGenericBloc
+  }) : primaryColor = primaryColor ?? Theme.of(context).primaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class SlideshowComponent extends StatelessWidget {
         return SafeArea(
           child: Center(
             child: _CreateSlideshowStructure(
+              changeIndexItemGenericBloc: changeIndexItemGenericBloc,
               dotsUp: dotsUp, 
               slides: slides,
               currentPage: state.currentPage,
@@ -45,6 +48,7 @@ class SlideshowComponent extends StatelessWidget {
 }
 
 class _CreateSlideshowStructure extends StatelessWidget {
+  final void Function()? changeIndexItemGenericBloc; 
   final bool dotsUp;
   final List<Widget> slides;
   final double currentPage; 
@@ -52,7 +56,8 @@ class _CreateSlideshowStructure extends StatelessWidget {
   const _CreateSlideshowStructure({
     required this.dotsUp,
     required this.slides,
-    required this.currentPage
+    required this.currentPage,
+    required this.changeIndexItemGenericBloc
   });
 
   @override
@@ -62,7 +67,7 @@ class _CreateSlideshowStructure extends StatelessWidget {
         (dotsUp) 
           ? _Dots(totalSlides: slides.length, currentPage: currentPage)
           : Expanded(
-            child: _Slides(slides)
+            child: _Slides(slides: slides, changeIndexItemGenericBloc: changeIndexItemGenericBloc)
           ),
         (!dotsUp) ? _Dots(totalSlides: slides.length, currentPage: currentPage) : const SizedBox()
       ],
@@ -130,9 +135,13 @@ class _Dot extends StatelessWidget {
 
 
 class _Slides extends StatefulWidget {
+  final void Function()? changeIndexItemGenericBloc; 
   final List<Widget> slides;
 
-  const _Slides(this.slides);
+  const _Slides({
+    required this.slides,
+    required this.changeIndexItemGenericBloc
+  });
 
   @override
   __SlidesState createState() => __SlidesState();
@@ -148,6 +157,7 @@ class __SlidesState extends State<_Slides> {
     pageViewController.addListener(() {
       //LLamamos al metodo para cambiar el current page dentro del initState
       context.read<SlidershowBloc>().changeCurrentPage(newCurrentPage: pageViewController.page!);
+      widget.changeIndexItemGenericBloc?.call(); //evalue si existe antes de ejecutarla, si existe ejecutela si no no
     });
   }
 

@@ -19,6 +19,7 @@ class LoadingScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: SlideshowComponent(
+                    context: context,
                     bulletPrimary   : 18.0,
                     bulletSecondary : 10.0,
                     primaryColor    : Theme.of(context).primaryColor,     

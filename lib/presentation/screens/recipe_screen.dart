@@ -5,12 +5,13 @@ class RecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    final int heroId = ModalRoute.of(context)!.settings.arguments as int;
+    return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          _HeaderImage(),
-          _InformationContainer(),
+          _HeaderImage(heroId: heroId,),
+          const _InformationContainer(),
         ],
       ),
     );
@@ -18,7 +19,10 @@ class RecipeScreen extends StatelessWidget {
 }
 
 class _HeaderImage extends StatelessWidget {
-  const _HeaderImage();
+  final int heroId;
+  const _HeaderImage({
+    required this.heroId
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +82,10 @@ class _HeaderImage extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Image.asset('assets/food/hamburger.png', fit: BoxFit.cover),
+                child: Hero(
+                  tag: heroId,
+                  child: Image.asset('assets/food/hamburger.png', fit: BoxFit.cover)
+                ),
               ),
             ],
           ),

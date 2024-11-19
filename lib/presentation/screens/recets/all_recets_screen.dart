@@ -35,10 +35,10 @@ class AllRecetsScreen extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(context, 'recipe', arguments: i),
                     child: Card(
                       shape:  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      elevation: 0,
                       color : Colors.white,
+                      elevation: 0,
                       child : SizedBox(
                         height: 350,
                         child : Padding(
@@ -78,6 +78,7 @@ class AllRecetsScreen extends StatelessWidget {
                                 Expanded(
                                   flex: 4,
                                   child: Container(
+                                    
                                     decoration : BoxDecoration(
                                       color : const Color(0xfff6f7fc),
                                       borderRadius: BorderRadius.circular(15.0),
@@ -92,29 +93,21 @@ class AllRecetsScreen extends StatelessWidget {
                                           bottom: 1,
                                           child: Container(
                                             padding : const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                                            height  : 60,
+                                            height  : 50,
                                             width   : size.width * 0.82,
                                             decoration: const BoxDecoration(
                                               color: Color(0xfff6f7fc),
                                               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15.0))
                                             ),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                const Text('Titulo del plato', style: sectionTitleStyle),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment : MainAxisAlignment.end,
-                                                  children: [
-                                                    Icon(Icons.food_bank_outlined, color: Colors.red[700]),
-                                                    const SizedBox(width: 5.0),
-                                                    const Expanded(
-                                                      child: Text('Italiano', style: TextStyle(color: Colors.black38, fontSize: 14, overflow: TextOverflow.ellipsis), maxLines: 1)
-                                                    ),
-                                                  ],
-                                                )
-                                              ]
+                                            child: const Padding(
+                                              padding:EdgeInsets.symmetric(horizontal: 10.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  _StadisticsRecipe()
+                                                ]
+                                              ),
                                             ),
                                           ),
                                         )
@@ -153,7 +146,7 @@ class _Header extends StatelessWidget {
     return Container(
       width : double.infinity,
       height: size.height * 0.15,
-      color : Theme.of(context).secondaryHeaderColor,
+      color : Theme.of(context).primaryColor,
       child : SafeArea(
         child : Align(
           alignment: Alignment.centerLeft,
@@ -174,5 +167,42 @@ class _Header extends StatelessWidget {
         ),
       )
     );
+  }
+}
+
+
+
+class _StadisticsRecipe extends StatelessWidget {
+  const _StadisticsRecipe();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.food_bank_outlined, color: Colors.red[700]),
+              const SizedBox(width: 10.0),
+              const Text('Italiano', style: TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+            ],
+          ),
+          Row(
+            children: [
+              Icon(Icons.access_time_sharp, color: Theme.of(context).primaryColor),
+              const SizedBox(width: 10.0),
+              const Text('20 minutos', style: TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+            ],
+          ),
+          Row(
+            children: [
+              Icon(Icons.food_bank, color: Theme.of(context).primaryColor),
+              const SizedBox(width: 10.0),
+              const Text('facíl', style: TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+            ],
+          ),
+        ],
+      );
   }
 }

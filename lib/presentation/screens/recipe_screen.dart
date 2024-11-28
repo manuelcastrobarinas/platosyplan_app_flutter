@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:platosyplan/models/recipe.dart';
 
 class RecipeScreen extends StatelessWidget {
   const RecipeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    final RecipeModel recipe = ModalRoute.of(context)!.settings.arguments as RecipeModel;
+    return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          _HeaderImage(),
-          _InformationContainer(),
+          _HeaderImage(heroId: recipe.id, imageUrl: recipe.image),
+          _InformationContainer(recipe: recipe,)
         ],
       ),
     );
@@ -18,7 +20,13 @@ class RecipeScreen extends StatelessWidget {
 }
 
 class _HeaderImage extends StatelessWidget {
-  const _HeaderImage();
+  final String heroId;
+  final String imageUrl;
+  
+  const _HeaderImage({
+    required this.heroId,
+    required this.imageUrl
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +37,35 @@ class _HeaderImage extends StatelessWidget {
         color: Theme.of(context).secondaryHeaderColor,
         borderRadius: const BorderRadiusDirectional.vertical(bottom: Radius.circular(30)),
       ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Stack(
-            children: [
-              SizedBox(
+      child: Stack(
+        children: [
+          SizedBox(
+            height: double.infinity,
+            width : double.infinity,
+            child: Hero(
+              tag: heroId,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30.0)),
+                child: Image.network(imageUrl, fit: BoxFit.cover)
+              )
+            ),
+          ),
+          Center(
+            child: Container(
+              height: 250,
+              width: 250,
+              decoration: BoxDecoration(
+                boxShadow: const [
+                  BoxShadow(color: Colors.black12, blurRadius: 20, spreadRadius: 1),
+                ],
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SafeArea(
+              child: SizedBox(
                 child: InkWell(
                   onTap: () => Navigator.pop(context),
                   child: const CircleAvatar(
@@ -45,8 +76,13 @@ class _HeaderImage extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                right: 0,
+            ),
+          ),
+          Positioned(
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SafeArea(
                 child: SizedBox(
                   child: InkWell(
                     onTap: () {},
@@ -64,53 +100,45 @@ class _HeaderImage extends StatelessWidget {
                   ),
                 ),
               ),
-              Center(
-                child: Container(
-                  height: 250,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(color: Colors.black12, blurRadius: 20, spreadRadius: 1),
-                    ],
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Image.asset('assets/food/hamburger.png', fit: BoxFit.cover),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
 
 class _InformationContainer extends StatelessWidget {
-  const _InformationContainer();
+
+  final RecipeModel recipe;
+
+  const _InformationContainer({required this.recipe});
 
   @override
   Widget build(BuildContext context) {
     const TextStyle sectionTitleStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 14, overflow: TextOverflow.ellipsis);
-    return const SizedBox(
+    return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            _TitleRecipe(),
-            _CountryRecipe(),
-            _StadisticsRecipe(),
-            _DescriptionRecipe(),
-            _Ingredients(sectionTitleStyle: sectionTitleStyle),
-            _NutritionalTable(sectionTitleStyle: sectionTitleStyle),
-            _Utensils(sectionTitleStyle: sectionTitleStyle),
-            SizedBox(height: 10.0),
-            _ButtonToReditectSteps(sectionTitleStyle: sectionTitleStyle),
+            _TitleRecipe(recipeTitle: recipe.name),
+            _CountryRecipe(countryRecipe: recipe.createRegion),
+            _StadisticsRecipe(
+              calories  : recipe.nutricionalTable.calories!.amount.toString(),
+              difficulty: recipe.difficulty,
+              score     : recipe.calification.toString(),
+              time      : recipe.timeCreate.toString(),
+            ),
+            _DescriptionRecipe(description: recipe.description),
+            _Ingredients(sectionTitleStyle: sectionTitleStyle, ingredientList: recipe.ingredients!),
+            _NutritionalTable(sectionTitleStyle: sectionTitleStyle, nutricionalTable: recipe.nutricionalTable,),
+            _Utensils(sectionTitleStyle: sectionTitleStyle, utensilios: recipe.utensils!),
+            const SizedBox(height: 10.0),
+            _ButtonToReditectSteps(sectionTitleStyle: sectionTitleStyle, stepsList: recipe.steps!),
           ],
         ),
       ),
@@ -119,8 +147,11 @@ class _InformationContainer extends StatelessWidget {
 }
 
 class _ButtonToReditectSteps extends StatelessWidget {
+  final List<StepCooking> stepsList;
+  
   const _ButtonToReditectSteps({
     required this.sectionTitleStyle,
+    required this.stepsList
   });
 
   final TextStyle sectionTitleStyle;
@@ -139,14 +170,17 @@ class _ButtonToReditectSteps extends StatelessWidget {
           Icon(Icons.ads_click, color: Theme.of(context).primaryColor),
         ]
       ),
-      onPressed: () => Navigator.pushNamed(context, 'cookingsteps')
+      onPressed: () => Navigator.pushNamed(context, 'cookingsteps', arguments: stepsList)
     );
   }
 }
 
 class _Utensils extends StatelessWidget {
+  final List<Utensil> utensilios;
+
   const _Utensils({
     required this.sectionTitleStyle,
+    required this.utensilios
   });
 
   final TextStyle sectionTitleStyle;
@@ -164,13 +198,13 @@ class _Utensils extends StatelessWidget {
       subtitle: const Text("para este plato tienes 6 ingredientes", maxLines: 1),
       trailing: const Icon(Icons.arrow_drop_down),
       children: [
-        ListView.builder( //TODO: REMPLAZAR CON LA LISTA DE UTENCILIOS
+        ListView.builder(
           padding: const EdgeInsets.only(top: 0),
-          itemCount: 3,
+          itemCount: utensilios.length,
           shrinkWrap: true,
           physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
           itemBuilder: (BuildContext context, int index) {
-            return const Text('- Medium Pot');
+            return Text('- ${utensilios[index].name}');
           },
         )
       ],
@@ -179,8 +213,11 @@ class _Utensils extends StatelessWidget {
 }
 
 class _NutritionalTable extends StatelessWidget {
+  final NutricionalTable nutricionalTable;
+
   const _NutritionalTable({
     required this.sectionTitleStyle,
+    required this.nutricionalTable
   });
 
   final TextStyle sectionTitleStyle;
@@ -218,49 +255,49 @@ class _NutritionalTable extends StatelessWidget {
               color: Colors.black12,
               context: context,
               tiles: [
-                const ListTile(
-                  leading : Text('calorias'),
-                  trailing: Text('940 kcal'),
+                ListTile(
+                  leading : const Text('calorias'),
+                  trailing: Text('${nutricionalTable.calories!.amount.toString()} Kcal'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Grasa'),
-                  trailing: Text('50 g'),
+                ListTile(
+                  leading : const Text('Grasa'),
+                  trailing: Text('${nutricionalTable.fat!.amount.toString()} g'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Grasa Saturada'),
-                  trailing: Text('26 g'),
+                ListTile(
+                  leading : const Text('Grasa Saturada'),
+                  trailing: Text('${nutricionalTable.saturedFat!.amount.toString()} g'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Carbohidratos'),
-                  trailing: Text('89 g'),
+                ListTile(
+                  leading : const Text('Carbohidratos'),
+                  trailing: Text('${nutricionalTable.carbohidrate!.amount.toString()} g'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Azucar'),
-                  trailing: Text('10 g'),
+                ListTile(
+                  leading : const Text('Azucar'),
+                  trailing: Text('${nutricionalTable.sugar!.amount.toString()} g'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Fibra Dietetica'),
-                  trailing: Text('6 g'),
+                ListTile(
+                  leading : const Text('Fibra Dietetica'),
+                  trailing: Text('${nutricionalTable.dietaryFiber!.amount.toString()} g'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Proteina'),
-                  trailing: Text('26 g'),
+                ListTile(
+                  leading : const Text('Proteina'),
+                  trailing: Text('${nutricionalTable.protein!.amount.toString()} g'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Colesterol'),
-                  trailing: Text('115 mg'),
+                ListTile(
+                  leading : const Text('Colesterol'),
+                  trailing: Text('${nutricionalTable.cholesterol!.amount.toString()} mg'),
                   dense: true,
                 ),
-                const ListTile(
-                  leading : Text('Sodio'),
-                  trailing: Text('1260 mg'),
+                ListTile(
+                  leading : const Text('Sodio'),
+                  trailing: Text('${nutricionalTable.sodium!.amount.toString()} mg'),
                   dense: true,
                 ),
               ]
@@ -281,8 +318,11 @@ class _NutritionalTable extends StatelessWidget {
 }
 
 class _Ingredients extends StatelessWidget {
+  final List<Ingredient> ingredientList;
+  
   const _Ingredients({
     required this.sectionTitleStyle,
+    required this.ingredientList
   });
 
   final TextStyle sectionTitleStyle;
@@ -326,7 +366,7 @@ class _Ingredients extends StatelessWidget {
         children: [
           ListView.builder(
             padding: const EdgeInsets.only(top: 5),
-            itemCount: 6,
+            itemCount: ingredientList.length,
             shrinkWrap: true,
             physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
             itemBuilder: (BuildContext context, int index) {
@@ -340,8 +380,8 @@ class _Ingredients extends StatelessWidget {
                   ),
                     child: Image.asset('assets/food/hamburger.png', fit: BoxFit.cover)
                   ),
-                  title   : const Text("igrendiente"),
-                  trailing: const Text('2 unidades'),
+                  title   : Text(ingredientList[index].name),
+                  trailing: Text(ingredientList[index].units.toString()),
                 ),
               );
             },
@@ -353,14 +393,15 @@ class _Ingredients extends StatelessWidget {
 }
 
 class _DescriptionRecipe extends StatelessWidget {
-  const _DescriptionRecipe();
+  final String description;
+  const _DescriptionRecipe({required this.description});
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "MAECANAS SED DIAM EGET RDolor exercitation in laborum eu labore est. Minim ad aliqua est sit amet incididunt in culpa voluptate. Nostrud officia qui eu commodo excepteur commodo in esse nostrud adipisicing laboris laborum irure.",
+    return Text(
+      description,
       textAlign: TextAlign.justify,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.w300,
         fontSize: 12,
         overflow: TextOverflow.ellipsis,
@@ -371,10 +412,16 @@ class _DescriptionRecipe extends StatelessWidget {
 }
 
 class _StadisticsRecipe extends StatelessWidget {
-  const _StadisticsRecipe();
+  final String score;
+  final String time;
+  final String calories;
+  final String difficulty;
+
+  const _StadisticsRecipe({required this.score, required this.time, required this.calories, required this.difficulty});
 
   @override
   Widget build(BuildContext context) {
+    const TextStyle style = TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Row(
@@ -384,28 +431,28 @@ class _StadisticsRecipe extends StatelessWidget {
             children: [
               Icon(Icons.star_border_outlined, weight: 10, fill: 1, color: Theme.of(context).primaryColor),
               const SizedBox(width: 10.0),
-              const Text('4.7', style: TextStyle(fontWeight: FontWeight.w900, overflow: TextOverflow.ellipsis), maxLines: 1)
+              Text(score, style: const TextStyle(fontWeight: FontWeight.w900, overflow: TextOverflow.ellipsis), maxLines: 1)
             ],
           ),
           Row(
             children: [
               Icon(Icons.access_time_sharp, color: Theme.of(context).primaryColor),
               const SizedBox(width: 10.0),
-              const Text('20 minutos', style: TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+              Text('$time minutos', style: style, maxLines: 1)
             ],
           ),
           Row(
             children: [
               Icon(Icons.fireplace_outlined, color: Theme.of(context).primaryColor),
               const SizedBox(width: 10.0),
-              const Text('940 calorias', style: TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+              Text('$calories calorias', style: style, maxLines: 1)
             ],
           ),
           Row(
             children: [
               Icon(Icons.food_bank, color: Theme.of(context).primaryColor),
               const SizedBox(width: 10.0),
-              const Text('facíl', style: TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+              Text(difficulty, style: style, maxLines: 1)
             ],
           ),
         ],
@@ -415,7 +462,9 @@ class _StadisticsRecipe extends StatelessWidget {
 }
 
 class _CountryRecipe extends StatelessWidget {
-  const _CountryRecipe();
+  final String countryRecipe;
+
+  const _CountryRecipe({required this.countryRecipe});
 
   @override
   Widget build(BuildContext context) {
@@ -423,20 +472,21 @@ class _CountryRecipe extends StatelessWidget {
       children: [
         Icon(Icons.fastfood_rounded, color: Colors.red[900]),
         const SizedBox(width: 10.0),
-        const Text('Italiano', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis, fontSize: 16), maxLines: 2),
+        Text(countryRecipe, style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis, fontSize: 16), maxLines: 2),
       ],
     );
   }
 }
 
 class _TitleRecipe extends StatelessWidget {
-  const _TitleRecipe();
+  final String recipeTitle;
+  const _TitleRecipe({required this.recipeTitle});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      child: Text('Burger Bistro', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 20), maxLines: 2),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(recipeTitle, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 20), maxLines: 2),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:platosyplan/components/slidershow_component.dart';
-import 'package:platosyplan/models/steps.dart';
+import 'package:platosyplan/models/recipe.dart';
 
 import '../../bloc/steps/steps_bloc.dart';
 
@@ -45,12 +45,17 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                   children: [
                     Container(
                       color: Theme.of(context).primaryColorLight,
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.45,
+                      width : double.infinity,
                       child: SlideshowComponent(
                         changeIndexItemGenericBloc: stepsBloc.changeIndexItem,
                         context: context,
                         primaryColor: Theme.of(context).primaryColor,
-                        slides: state.steps!.map((slide) => slide.imageUrl).toList()
+                        slides: state.steps!.map((slide) => FadeInImage(
+                          fit: BoxFit.cover,
+                          placeholder: const AssetImage('assets/food/loading-food-two.gif'), 
+                          image: NetworkImage(slide.image)
+                        )).toList()
                       ),
                     ),
                     Padding(
@@ -67,8 +72,8 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                       child: Text(state.steps![state.indexElement].description, textAlign: TextAlign.justify),
                     ),
-                    _Utensils(sectionTitleStyle: sectionTitleStyle, utensiliosList: state.steps![state.indexElement].utensiliosStep),
-                    _Ingredients(sectionTitleStyle: sectionTitleStyle, ingredientsSteps: state.steps![state.indexElement].ingredientesStep)      
+                    _Utensils(sectionTitleStyle: sectionTitleStyle, utensiliosList: state.steps![state.indexElement].utensiliosSteps),
+                    _Ingredients(sectionTitleStyle: sectionTitleStyle, ingredientsSteps: state.steps![state.indexElement].ingredientsSteps!)      
                   ],
                 );
             } else {
@@ -84,7 +89,7 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
 class _Utensils extends StatelessWidget {
 
   final TextStyle sectionTitleStyle;
-  final List<String>? utensiliosList;
+  final List<Utensil>? utensiliosList;
 
   const _Utensils({
     required this.sectionTitleStyle,
@@ -112,7 +117,7 @@ class _Utensils extends StatelessWidget {
             shrinkWrap: true,
             physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
             itemBuilder: (BuildContext context, int index) {
-              return Text('- ${utensiliosList![index]}', style: const TextStyle(fontWeight: FontWeight.w900),);
+              return Text('- ${utensiliosList![index].name}', style: const TextStyle(fontWeight: FontWeight.w900),);
             },
           )
         ] : [],
@@ -121,10 +126,9 @@ class _Utensils extends StatelessWidget {
   }
 }
 
-
 class _Ingredients extends StatelessWidget {
   final TextStyle sectionTitleStyle;
-  final List<Ingredients> ingredientsSteps;
+  final List<Ingredient> ingredientsSteps;
 
   const _Ingredients({
     required this.sectionTitleStyle,

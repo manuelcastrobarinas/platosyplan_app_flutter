@@ -4,7 +4,7 @@ part of 'steps_bloc.dart';
 sealed class StepsState {}
 
 final class StepsInitial extends StepsState {
-  final List<Steps>? steps;
+  final List<StepCooking>? steps;
   final int indexElement;
 
   StepsInitial({
@@ -13,7 +13,7 @@ final class StepsInitial extends StepsState {
   });
 
   StepsInitial copyWith({
-    List<Steps>? steps,
+    List<StepCooking>? steps,
     int? indexElement
   }) => StepsInitial(
     steps: steps ?? this.steps,

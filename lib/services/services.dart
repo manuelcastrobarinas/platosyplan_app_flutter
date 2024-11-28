@@ -1,0 +1,1 @@
+export 'package:platosyplan/services/recipe/recipe.dart';

@@ -4,7 +4,7 @@ part of 'steps_bloc.dart';
 sealed class StepsEvent {}
 
 class OnGetCookingStepsEvent extends StepsEvent {
-  final List<Steps> steps;
+  final List<StepCooking> steps;
   
   OnGetCookingStepsEvent({
     required this.steps

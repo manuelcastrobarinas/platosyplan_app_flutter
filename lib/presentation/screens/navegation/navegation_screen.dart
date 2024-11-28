@@ -9,7 +9,7 @@ final List<StatelessWidget> _screens = <StatelessWidget>[
 
   List<BottomNavigationBarItem> _items = [
     const BottomNavigationBarItem(label: 'Home',    icon: Icon(Icons.fastfood_outlined)),
-    const BottomNavigationBarItem(label: 'menu',    icon: Icon(Icons.home)),
+    const BottomNavigationBarItem(label: 'Recetas',    icon: Icon(Icons.menu_book_rounded)),
     const BottomNavigationBarItem(label: 'Todos', icon: Icon(Icons.food_bank_rounded)),
   ];
 

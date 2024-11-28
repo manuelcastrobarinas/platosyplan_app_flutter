@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:platosyplan/bloc/recipe/recipes_bloc.dart';
 import 'package:platosyplan/bloc/slidershow/slidershow_bloc.dart';
 import 'package:platosyplan/bloc/steps/steps_bloc.dart';
 import 'package:platosyplan/routes/routes.dart';
+import 'package:platosyplan/services/services.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env.dev");
   runApp(
     MultiBlocProvider(
     providers: [
       BlocProvider<SlidershowBloc>(create: (BuildContext context) => SlidershowBloc()),
       BlocProvider<StepsBloc>     (create: (BuildContext context) => StepsBloc(slideshowBloc: context.read<SlidershowBloc>() )), //INYECCION DE UN BLOC EN OTRO
+      BlocProvider<RecipesBloc>   (create: (BuildContext context) => RecipesBloc(recipeService: RecipeServices())),
     ],
     child: const MyApp()
     )

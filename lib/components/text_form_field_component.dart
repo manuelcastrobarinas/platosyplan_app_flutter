@@ -6,6 +6,7 @@ class TextformfieldComponent extends StatelessWidget {
   final TextInputType keyboardType;
   final bool? haveSuffixIcon;
   final bool isPassword;
+  final IconData icon;
 
 
   const TextformfieldComponent({
@@ -15,6 +16,7 @@ class TextformfieldComponent extends StatelessWidget {
     required this.keyboardType, 
     this.haveSuffixIcon = false,
     this.isPassword     = false,
+    required this.icon,
   });
 
   @override
@@ -25,7 +27,7 @@ class TextformfieldComponent extends StatelessWidget {
       obscureText   : isPassword ,
       decoration    : InputDecoration(  
         label      : Text(label),
-        prefixIcon : const Icon(Icons.person, color: Colors.black),
+        prefixIcon :  Icon(icon, color: Colors.black),
         suffixIcon : (haveSuffixIcon == true) ? IconButton(
           icon      : const Icon(Icons.remove_red_eye_rounded),
           onPressed : () {} //TODO: HACER QUE SE VEA EL PASSWORD SI 

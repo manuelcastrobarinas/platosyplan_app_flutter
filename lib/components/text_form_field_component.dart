@@ -5,6 +5,7 @@ class TextformfieldComponent extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final bool? haveSuffixIcon;
+  final bool isPassword;
 
 
   const TextformfieldComponent({
@@ -12,7 +13,8 @@ class TextformfieldComponent extends StatelessWidget {
     this.label, 
     required this.controller, 
     required this.keyboardType, 
-    this.haveSuffixIcon = false
+    this.haveSuffixIcon = false,
+    this.isPassword     = false,
   });
 
   @override
@@ -20,6 +22,7 @@ class TextformfieldComponent extends StatelessWidget {
     return TextFormField(
       controller    : controller,
       keyboardType  : keyboardType,
+      obscureText   : isPassword ,
       decoration    : InputDecoration(  
         label      : Text(label),
         prefixIcon : const Icon(Icons.person, color: Colors.black),

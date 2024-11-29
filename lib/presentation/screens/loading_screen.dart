@@ -54,15 +54,12 @@ class LoadingScreen extends StatelessWidget {
           Flexible(
             flex: 2,
             child: Center(
-              child: MaterialButton(
-                minWidth  : MediaQuery.of(context).size.width * 0.55,
-                elevation : 0,
-                height: 50,
-                color : Theme.of(context).primaryColor,
-                shape : RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                onPressed: () => Navigator.pushNamed(context, 'navegation'),
-                child : const Text('Siguiente', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 17), maxLines: 1),
-              ),
+              child: ButtonComponent(
+                minWidth: MediaQuery.of(context).size.width * 0.55,
+                minHeight: 50,
+                function: () => Navigator.pushNamed(context, 'navegation'),
+                text: "Siguiente"
+              )
             )
           ),
         ],

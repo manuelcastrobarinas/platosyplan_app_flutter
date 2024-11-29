@@ -7,5 +7,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   'recipe'  : (_) => const RecipeView(),
   'cookingsteps' : (_) => const CookingStepsView(),
   'allrecets'    : (_) => const AllRecetsView(),
-  'navegation'   : (_) => const NavegationScreen()
+  'navegation'   : (_) => const NavegationScreen(),
+  'login'        : (_) => const LoginView()
 };

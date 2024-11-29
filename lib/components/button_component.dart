@@ -5,13 +5,17 @@ class ButtonComponent extends StatelessWidget {
   final double minHeight;
   final void Function() function;
   final String text;
-  
+  final double? borderRadius;
+  final Color? backgroundColor;
+
   const ButtonComponent({
     super.key, 
     required this.minWidth, 
     required this.minHeight, 
     required this.function, 
-    required this.text
+    required this.text,
+    this.borderRadius,
+    this.backgroundColor
   });
 
   @override
@@ -20,8 +24,8 @@ class ButtonComponent extends StatelessWidget {
       minWidth  : minWidth,
       elevation : 0,
       height: minHeight,
-      color : Theme.of(context).primaryColor,
-      shape : RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      color : backgroundColor ?? Theme.of(context).primaryColor,
+      shape : RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius ?? 10)),
       onPressed: function,
       child : Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 17), maxLines: 1),
     );

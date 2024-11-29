@@ -1,44 +1,24 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:platosyplan/components/components.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Column(
       children: [
         Expanded(
-          flex  : 5,
+          flex  : 3,
           child : _LogoAndTitle()
         ),
         Expanded(
-          flex  : 7,
+          flex  : 8,
           child : _LoginForm()
         ),
-        Expanded(
-          flex  : 2,
-          child : _CreateAccount()
-        ),
-      ],
-    );
-  }
-}
-
-class _CreateAccount extends StatelessWidget {
-  const _CreateAccount();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment : MainAxisAlignment.center,
-      children: [   
-        const Text("¿No tienes una cuenta?", style: TextStyle(color: Colors.black, fontSize: 14),),
-        TextButton(
-          onPressed: () {}, //TODO: REDIRIGIR AL REGISTRO, 
-          child: Text("Registrate", style: TextStyle(color: Colors.pink[600], fontSize: 17)),
-        )
+        SizedBox(height: 20.0)
       ],
     );
   }
@@ -50,8 +30,10 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {    
+    final TextEditingController userController     = TextEditingController();
     final TextEditingController emailController     = TextEditingController();
     final TextEditingController passwordController  = TextEditingController();
+    final TextEditingController phoneController     = TextEditingController();
     return Form(
       child: Container(
         height  : double.infinity,
@@ -73,30 +55,51 @@ class _LoginForm extends StatelessWidget {
           mainAxisAlignment : MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("Login", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 30),),
+            const Text("Registrate", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 30),),
+            TextformfieldComponent(
+              label       : 'ingresa tu nombre', 
+              controller  : userController, 
+              keyboardType: TextInputType.text,
+              icon        :  Icons.person,
+            ),
             TextformfieldComponent(
               label       : 'Ingresa tu correo', 
               controller  : emailController, 
-              keyboardType: TextInputType.emailAddress
+              keyboardType: TextInputType.emailAddress,
+              icon        :  Icons.email,
             ),
             TextformfieldComponent(
               label       : 'Ingresa tu Contraseña', 
-              controller  : passwordController, 
+              controller  : passwordController,
               keyboardType: TextInputType.text,
               isPassword  : true,
               haveSuffixIcon  : true,
+              icon        : Icons.lock,
             ),
-            const Row(
-              children: [
-                Expanded(child: SizedBox()),
-                Text("¿Olvidaste la contraseña?"),
-              ],
+            TextformfieldComponent(
+              label       : 'celular', 
+              controller  : phoneController,
+              keyboardType: TextInputType.phone,
+              icon        : Icons.phone_iphone_rounded,
+            ),
+             TextButton(
+              onPressed: () async {
+                Uri uri = Uri.parse('https://nebula-syrup-a0b.notion.site/T-rminos-y-condiciones-14deb7efedee8084be20ffbc1bea0074');
+                try {
+                  await launchUrl(uri, mode: LaunchMode.externalApplication);
+                } catch (e) { 
+                  if (kDebugMode) {
+                    print("error abriendo esta chimbada $e");
+                  }
+                }
+              },
+              child: Text("terminos y condiciones", style: TextStyle(color: Colors.pink[600], fontSize: 17)),
             ),
             ButtonComponent(
               minWidth: double.infinity, 
               minHeight: 45,
-              function: () {}, //TODO: HACER EL INICIO DE SESION
-              text: 'Inicia Sesión',
+              function: () => Navigator.pushNamed(context, 'login'), //TODO: HACER EL REGISTRO
+              text: 'Registrarme',
               backgroundColor: const Color(0xffff9500),
               borderRadius: 5.0,
             ),
@@ -126,23 +129,17 @@ class _LogoAndTitle extends StatelessWidget {
             flex  : 4,
             child : Column(
               children: [
-                Container(
-                  color : Colors.blue,
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.10,
                   child : Image.asset("assets/logo.png")
                 ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * 0.56,
-                color: Colors.brown,
                 child: Image.asset("assets/platosyplanfondo.png")
               ),
               ],
             ),
           ),
-          const Expanded(
-            flex  : 2,
-            child : Text("PREPARA TUS RECETAS", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white))
-          )
         ]
       ),
     );

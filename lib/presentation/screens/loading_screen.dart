@@ -57,7 +57,7 @@ class LoadingScreen extends StatelessWidget {
               child: ButtonComponent(
                 minWidth: MediaQuery.of(context).size.width * 0.55,
                 minHeight: 50,
-                function: () => Navigator.pushNamed(context, 'navegation'),
+                function: () => Navigator.pushNamed(context, 'login'),
                 text: "Siguiente"
               )
             )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:platosyplan/presentation/screens/login/login.dart';
+import 'package:platosyplan/components/components.dart';
+import '../../screens/screens.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -12,6 +13,7 @@ class LoginView extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: const Stack(
             children: [
+              HeaderCurve(),
               LoginScreen()
             ],  
           ),

@@ -7,6 +7,7 @@ class TextformfieldComponent extends StatelessWidget {
   final bool? haveSuffixIcon;
   final bool isPassword;
   final IconData icon;
+  final String? Function(String)? validatorFunction;
 
 
   const TextformfieldComponent({
@@ -17,6 +18,7 @@ class TextformfieldComponent extends StatelessWidget {
     this.haveSuffixIcon = false,
     this.isPassword     = false,
     required this.icon,
+    this.validatorFunction, 
   });
 
   @override
@@ -24,7 +26,12 @@ class TextformfieldComponent extends StatelessWidget {
     return TextFormField(
       controller    : controller,
       keyboardType  : keyboardType,
-      obscureText   : isPassword ,
+      obscureText   : isPassword,
+      validator     : (value) {
+          if (value!.isEmpty) return 'Este campo es obligatorio';
+          if (validatorFunction != null) return validatorFunction!(value); 
+          return null;
+      },
       decoration    : InputDecoration(  
         label      : Text(label),
         prefixIcon :  Icon(icon, color: Colors.black),

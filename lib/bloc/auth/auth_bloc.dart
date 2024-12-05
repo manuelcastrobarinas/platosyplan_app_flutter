@@ -20,5 +20,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return response; 
   }
   
+  Future<String> loginSesion({required String email, required String password }) async {
+    final String response = await authService.login(email: email, password: password);
+    if (response != 'success' ) return response;
+    add(OnGetUserAuthEvent(user: authService.user!));
+    return response;
+  }
+
+  Future<String> loadCredentials() async {
+    final String response = await authService.getUserCredentials();
+    if (response != 'success') return response;
+    add(OnGetUserAuthEvent(user: authService.user!));
+    return response;
+  }
+
   void setIsLoadingRequest({required bool isLoadingRequest}) => add(OnSetLoadingRequestEvent(isLoadRequest: isLoadingRequest));
 }

@@ -19,7 +19,7 @@ class CustomApiErrors implements Exception {
     if (error is FormatException)   return CustomApiErrors('@Error en el formato. ${error.toString()}');
     if (error is SocketException)   return CustomApiErrors('@Socket Error. ${error.toString()}');
     if (error is DioException) {
-      if (error.type == DioExceptionType.connectionTimeout) return CustomApiErrors('Tiempo de espera de conexion: no se ´pudo establecer la conexión con el servidor');
+      if (error.type == DioExceptionType.connectionTimeout) return CustomApiErrors('Tiempo de espera de conexion: no se pudo establecer la conexión con el servidor');
       if (error.type == DioExceptionType.sendTimeout)       return CustomApiErrors('Hubo un problema al enviar la solicitud al servidor. Por favor, intentarlo de nuevo');
       if (error.type == DioExceptionType.receiveTimeout)    return CustomApiErrors('Recibir tiempo de espera: Se Ha excedido el tiempo de espera para recibir la respuesta del servidor. Porfavor inténtalo mas tarde.');
       if (error.error is TimeoutException)  return CustomApiErrors('No se pudieron obtener el recurso debido  a un problema de tiempo de espera. Por favor, verificar la conexion a internet y vuelve a intentarlo.');

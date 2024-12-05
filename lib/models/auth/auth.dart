@@ -20,14 +20,14 @@ class LoginResponse {
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
     ok        : json["ok"],
     message   : json["message"],
-    userModel :UserModel.fromJson(json["user_model"]),
+    userModel : UserModel.fromJson(json["user"]),
     token     : json["token"],
   );
 
   Map<String, dynamic> toJson() => {
     "ok": ok,
     "message": message,
-    "user_model": userModel.toJson(),
+    "user": userModel.toJson(),
     "token": token,
   };
 }
@@ -37,12 +37,10 @@ class UserModel {
   String name;
   String email;
   String phone;
-  String uid;
   DateTime? createdAt;
   DateTime? updatedAt;
 
   UserModel({
-    required this.uid,
     required this.id,
     required this.name,
     required this.email,
@@ -62,7 +60,6 @@ class UserModel {
     phone: json["phone"],
     createdAt: json["CreatedAt"] == null ? null : DateTime.parse(json["CreatedAt"]),
     updatedAt: json["UpdatedAt"] == null ? null : DateTime.parse(json["UpdatedAt"]),
-    uid: json["uid"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -72,6 +69,5 @@ class UserModel {
     "phone": phone,
     "CreatedAt": createdAt?.toIso8601String(),
     "UpdatedAt": updatedAt?.toIso8601String(),
-    "uid": uid,
   };
 }

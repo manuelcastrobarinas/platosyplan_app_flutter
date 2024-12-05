@@ -30,7 +30,13 @@ class ButtonComponent extends StatelessWidget {
       color : backgroundColor ?? Theme.of(context).primaryColor,
       shape : RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius ?? 10)),
       onPressed:isLoading ? null : function,
-      child : isLoading ? const Center(child: CircularProgressIndicator()) : Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 17), maxLines: 1),
+      child : isLoading 
+        ? const Center(
+          child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircularProgressIndicator(color: Colors.white),
+        )) 
+        : Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 17), maxLines: 1),
     );
   }
 }

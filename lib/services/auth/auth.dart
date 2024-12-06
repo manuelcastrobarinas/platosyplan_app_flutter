@@ -90,4 +90,5 @@ class AuthService  implements AuthRules {
     await storage.delete(key: 'key');
   }
 
+  //TODO: SACAR LA PANTALLA DE CARGANDO Y HACER LA PETICION DE LAS CREDENCIALES EN EL BOTON DELA PANTALLA DE INTRODUCCION
 }

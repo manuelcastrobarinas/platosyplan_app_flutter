@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:platosyplan/bloc/auth/auth_bloc.dart';
 
 class TextformfieldComponent extends StatelessWidget {
   final String label;
@@ -28,16 +30,20 @@ class TextformfieldComponent extends StatelessWidget {
       keyboardType  : keyboardType,
       obscureText   : isPassword,
       validator     : (value) {
-          if (value!.isEmpty) return 'Este campo es obligatorio';
-          if (validatorFunction != null) return validatorFunction!(value); 
-          return null;
+        if (value!.isEmpty) return 'Este campo es obligatorio';
+        if (validatorFunction != null) return validatorFunction!(value); 
+        return null;
       },
       decoration    : InputDecoration(  
         label      : Text(label),
         prefixIcon :  Icon(icon, color: Colors.black),
         suffixIcon : (haveSuffixIcon == true) ? IconButton(
           icon      : const Icon(Icons.remove_red_eye_rounded),
-          onPressed : () {} //TODO: HACER QUE SE VEA EL PASSWORD SI 
+          onPressed : () {
+            bool showpassword;
+            isPassword == false  ? showpassword = true : showpassword = false;
+            BlocProvider.of<AuthBloc>(context).showPassword(showPassword: showpassword);
+          }
         ) : const SizedBox(),
         border        : OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
         enabledBorder : const OutlineInputBorder(borderSide: BorderSide(color: Colors.black12)),

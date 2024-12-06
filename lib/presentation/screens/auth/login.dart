@@ -5,7 +5,6 @@ import 'package:platosyplan/components/components.dart';
 import 'package:platosyplan/utils/forms/validators.dart';
 
 import '../../../bloc/auth/auth_bloc.dart';
-import '../../views/views.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -42,25 +41,25 @@ class _CreateAccount extends StatelessWidget {
       children: [   
         const Text("¿No tienes una cuenta?", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
         TextButton(
-          // onPressed: () => Navigator.pushNamed(context, 'register'),
-          onPressed: () => Navigator.pushReplacement(
-          context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const RegisterView(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                const Offset begin = Offset(-1.0, 0.0);
-                const Offset end = Offset.zero;
-                const curve = Curves.easeInOutQuart;
-                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                var offsetAnimation = animation.drive(tween);
-                return SlideTransition(
-                  position: offsetAnimation,
-                  child: child,
-                );
-              },
-              transitionDuration: const Duration(seconds: 2), // Duración personalizada
-            ),
-          ),
+          onPressed: () => Navigator.pushNamed(context, 'register'),
+          // onPressed: () => Navigator.pushReplacement(
+          // context,
+          //   PageRouteBuilder(
+          //     pageBuilder: (context, animation, secondaryAnimation) => const RegisterView(),
+          //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          //       const Offset begin = Offset(-1.0, 0.0);
+          //       const Offset end = Offset.zero;
+          //       const curve = Curves.easeInOutQuart;
+          //       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          //       var offsetAnimation = animation.drive(tween);
+          //       return SlideTransition(
+          //         position: offsetAnimation,
+          //         child: child,
+          //       );
+          //     },
+          //     transitionDuration: const Duration(seconds: 2), // Duración personalizada
+          //   ),
+          // ),
           child: Text("Registrate", style: TextStyle(color: Colors.pink[600], fontSize: 17)),
         )
       ],
@@ -117,7 +116,7 @@ class _LoginForm extends StatelessWidget {
                   label       : 'Ingresa tu Contraseña', 
                   controller  : passwordController,
                   keyboardType: TextInputType.text,
-                  isPassword  : true,
+                  isPassword  : state.hidePassword,
                   haveSuffixIcon  : true,
                   icon        : Icons.lock,
                   validatorFunction: validatePassword,
@@ -144,7 +143,7 @@ class _LoginForm extends StatelessWidget {
                       if(!context.mounted) return;
                       if (response == 'success') {
                         authBloc.setIsLoadingRequest(isLoadingRequest: false);
-                        Navigator.pushNamed(context, 'navegation');
+                        Navigator.popAndPushNamed(context, 'navegation');
                         return;
                       }
                     } catch (e) {

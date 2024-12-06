@@ -4,13 +4,13 @@ import '../../views/views.dart';
 final List<StatelessWidget> _screens = <StatelessWidget>[
   const AllRecetsView(),
   const AllRecetsView(),
-  const AllRecetsView(),
+  const ProfileView(),
 ];
 
   List<BottomNavigationBarItem> _items = [
     const BottomNavigationBarItem(label: 'Home',    icon: Icon(Icons.fastfood_outlined)),
-    const BottomNavigationBarItem(label: 'Recetas',    icon: Icon(Icons.menu_book_rounded)),
-    const BottomNavigationBarItem(label: 'Todos', icon: Icon(Icons.food_bank_rounded)),
+    const BottomNavigationBarItem(label: 'Recetas', icon: Icon(Icons.menu_book_rounded)),
+    const BottomNavigationBarItem(label: 'Perfil',  icon: Icon(Icons.person_2_rounded)),
   ];
 
   

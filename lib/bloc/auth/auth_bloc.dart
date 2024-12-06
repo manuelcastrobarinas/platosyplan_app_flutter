@@ -11,6 +11,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authService}) : super(AuthState()) {
     on<OnGetUserAuthEvent>      ((event, emit) => emit(state.copyWith(user: event.user)));
     on<OnSetLoadingRequestEvent>((event, emit) => emit(state.copyWith(isLoadingRequest: event.isLoadRequest)));
+    on<OnSetShowPasswordEvent>  ((event, emit) => emit(state.copyWith(hidePassword: event.showPassword)));
   }
 
   Future<String> registerNewUser({required String name, required String email, required String password,required String phone}) async {
@@ -35,4 +36,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void setIsLoadingRequest({required bool isLoadingRequest}) => add(OnSetLoadingRequestEvent(isLoadRequest: isLoadingRequest));
+  void showPassword({required bool showPassword}) => add(OnSetShowPasswordEvent(showPassword: showPassword));
 }

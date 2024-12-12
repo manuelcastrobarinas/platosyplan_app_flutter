@@ -11,5 +11,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   'login'        : (_) => const LoginView(),
   'register'     : (_) => const RegisterView(),
   'profile'      : (_) => const ProfileView(),
-  'editprofile'  : (_) => const EditProfileView()
+  'editprofile'  : (_) => const EditProfileView(),
+  'myrecipes'    : (_) => const MyRecipesView()
 };

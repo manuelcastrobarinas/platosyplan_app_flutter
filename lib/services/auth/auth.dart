@@ -90,7 +90,7 @@ class AuthService  implements AuthRules {
 
   static Future<void> deleteToken() async { //for delete the sesion
     const FlutterSecureStorage storage = FlutterSecureStorage();
-    await storage.delete(key: 'key');
+    await storage.delete(key: 'token');
   }
   
   @override

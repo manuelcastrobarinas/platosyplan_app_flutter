@@ -15,10 +15,8 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     }
   }
 
-  Future<String> getAllRecipes() async {
-    final String response = await recipeService.getAllRecipes();
-    if (response != 'success') return response;
-    add(OnGetAllRecipesEvent(newListRecipe: recipeService.recipeResponse!.data!.recipes!));
-    return response;
+  Future<void> getAllRecipes() async {
+    final RecipeResponse response = await recipeService.getAllRecipes();
+    add(OnGetAllRecipesEvent(newListRecipe: response.data!.recipes!));
   }
 }

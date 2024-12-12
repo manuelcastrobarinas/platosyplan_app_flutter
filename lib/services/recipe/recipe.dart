@@ -7,16 +7,15 @@ class RecipeServices {
 
   final Dio _dio = Dio();
   final String _url = dotenv.get("BACKEND_URL"); 
-  RecipeResponse? recipeResponse;
-  
-  Future<String> getAllRecipes() async {
+
+  Future<RecipeResponse> getAllRecipes() async {
     try {
       final String url = '$_url/recipes/all';
       final Response<dynamic> response = await _dio.get(url);
-      recipeResponse = RecipeResponse.fromJson(response.data);
-      return 'success';
+      final RecipeResponse recipeResponse = RecipeResponse.fromJson(response.data);
+      return recipeResponse;
     } catch (e) {
-      return throw CustomApiErrors.fromError(e);
+      throw CustomApiErrors.fromError(e);
     }
   }
 }

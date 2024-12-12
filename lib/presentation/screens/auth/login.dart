@@ -136,22 +136,22 @@ class _LoginForm extends StatelessWidget {
                     authBloc.setIsLoadingRequest(isLoadingRequest: true);
                     FocusScope.of(context).unfocus();                   
                     try {
-                      final String response = await authBloc.loginSesion(
+                     await authBloc.loginSesion(
                         email   : emailController.text.trim(), 
                         password: passwordController.text.trim(),
                       );
                       if(!context.mounted) return;
-                      if (response == 'success') {
                         authBloc.setIsLoadingRequest(isLoadingRequest: false);
                         Navigator.popAndPushNamed(context, 'navegation');
                         return;
-                      }
                     } catch (e) {
                       if (context.mounted) {
-                        await showAlertComponent(
-                          context : context, 
+                        showDialog(
+                          context: context,
+                          builder: (_) =>  ShowAlertComponent(
                           title   : 'Algo salio mal al iniciar Sesión', 
                           subtitle: e.toString()
+                          )
                         );
                       }
                     } finally {

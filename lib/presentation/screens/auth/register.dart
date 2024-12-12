@@ -1,11 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:platosyplan/bloc/auth/auth_bloc.dart';
 import 'package:platosyplan/components/alerts/show_alert_component.dart';
 import 'package:platosyplan/components/components.dart';
 import 'package:platosyplan/utils/forms/validators.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../utils/legal/terms_and_conditions.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -97,30 +96,28 @@ class _LoginForm extends StatelessWidget {
                   minWidth  : double.infinity, 
                   minHeight : 45,
                   function: () async {
-                    if (!formKey.currentState!.validate()) { 
-                      return;
-                    }
+                    if (!formKey.currentState!.validate()) return;
+
                     authBloc.setIsLoadingRequest(isLoadingRequest: true);
                     FocusScope.of(context).unfocus();
                     try {
-                      final String response = await authBloc.registerNewUser(
+                      await authBloc.registerNewUser(
                         name: nameController.text.trim(),
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
                         phone: phoneController.text.trim(),
                       );
                       if (!context.mounted) return;
-                      if (response == 'success') {
-                        authBloc.setIsLoadingRequest(isLoadingRequest: false);
-                        Navigator.pushNamed(context, 'navegation');
-                        return;
-                      }
+                      Navigator.pushNamed(context, 'navegation');
+                      return;
                     } catch (e) {
                       if (context.mounted) {
-                        await showAlertComponent(
+                        showDialog(
                           context: context,
+                          builder: (_) => ShowAlertComponent(
                           title: 'Error inesperado',
                           subtitle: e.toString(),
+                          )
                         );
                       }
                     } finally {
@@ -146,16 +143,7 @@ class _TermsAndConditions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () async {
-        Uri uri = Uri.parse('https://nebula-syrup-a0b.notion.site/T-rminos-y-condiciones-14deb7efedee8084be20ffbc1bea0074');
-        try {
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
-        } catch (e) { 
-          if (kDebugMode) {
-            print("error abriendo los terminos y condiciones $e");
-          }
-        }
-      },
+      onPressed: showTermnsAndConditions,
       child: Text("terminos y condiciones", style: TextStyle(color: Colors.pink[600], fontSize: 17)),
     );
   }

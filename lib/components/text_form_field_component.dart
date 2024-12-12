@@ -10,7 +10,7 @@ class TextformfieldComponent extends StatelessWidget {
   final bool isPassword;
   final IconData icon;
   final String? Function(String)? validatorFunction;
-
+  final String? suffixText;
 
   const TextformfieldComponent({
     super.key, required 
@@ -21,6 +21,7 @@ class TextformfieldComponent extends StatelessWidget {
     this.isPassword     = false,
     required this.icon,
     this.validatorFunction, 
+    this.suffixText,
   });
 
   @override
@@ -29,12 +30,14 @@ class TextformfieldComponent extends StatelessWidget {
       controller    : controller,
       keyboardType  : keyboardType,
       obscureText   : isPassword,
+
       validator     : (value) {
         if (value!.isEmpty) return 'Este campo es obligatorio';
         if (validatorFunction != null) return validatorFunction!(value); 
         return null;
       },
-      decoration    : InputDecoration(  
+      decoration   : InputDecoration(  
+        suffixText : suffixText,
         label      : Text(label),
         prefixIcon :  Icon(icon, color: Colors.black),
         suffixIcon : (haveSuffixIcon == true) ? IconButton(

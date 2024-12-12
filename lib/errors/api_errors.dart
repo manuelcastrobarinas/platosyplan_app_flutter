@@ -27,6 +27,7 @@ class CustomApiErrors implements Exception {
       if (error.error is FormatException)   return CustomApiErrors('Se produjo un error al procesar los datos del recurso. Por favor, inténtalo más tarde.');
       if (error.error is SocketException)   return CustomApiErrors('Ha ocurrido un problema de conexión. Verifica tu conexión a internet e intenta nuevamente.');
       if (error.response != null && (error.response!.statusCode == 400 || error.response?.statusCode == 500)) return CustomApiErrors(error.response!.data['error_message'].toString());
+      if (error.response != null && (error.response!.statusCode == 400 || error.response?.statusCode == 500)) return CustomApiErrors(error.response!.data['error_message'].toString());
       if (error.response?.statusCode == 404)  return CustomApiErrors('El recurso que estás buscando no se ha encontrado en el servidor. Verifica la información e inténtalo nuevamente. ${error.response?.statusMessage.toString()}');
       if (error.type == DioExceptionType.badResponse) return CustomApiErrors('Ha ocurrido un error al procesar la respuesta del servidor. Por favor, inténtalo más tarde. ${error.message.toString()}');
       if (error.type == DioExceptionType.unknown)     return CustomApiErrors('Se ha producido un error intesperado. Por favor, inténtalo nuevamente. ${error.message.toString()}');

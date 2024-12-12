@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'dart:io';
 
-Future<void> showAlertComponent({
-  required BuildContext context,
-  required String title,
-  required String subtitle,
-}) async {
-  if (Platform.isAndroid) {
-    return showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
+class ShowAlertComponent extends StatelessWidget {
+  
+  final String title;
+  final String subtitle;
+
+  const ShowAlertComponent({
+    super.key,
+    required this.title,
+    required this.subtitle
+  });
+
+  @override
+  Widget build(BuildContext context) {
+      return AlertDialog(
         title: Text(title),
         content: Text(subtitle),
         actions: [
@@ -21,22 +24,6 @@ Future<void> showAlertComponent({
             child: const Text('OK'),
           ),
         ],
-      ),
-    );
-  } else {
-    return showCupertinoDialog(
-      context: context,
-      builder: (_) => CupertinoAlertDialog(
-        title: Text(title),
-        content: Text(subtitle),
-        actions: [
-          CupertinoDialogAction(
-            isDefaultAction: true,
-            child: const Text('OK'),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
-      ),
-    );
-  }
+      );
+    }
 }

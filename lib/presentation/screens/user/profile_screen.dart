@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:platosyplan/components/button_component.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:platosyplan/models/auth/auth.dart';
 import 'package:platosyplan/services/services.dart';
 
-import '../../../components/profile/profile_menu.dart';
+import '../../../bloc/auth/auth_bloc.dart';
+import '../../../components/components.dart';
+import '../../../utils/legal/terms_and_conditions.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -16,91 +19,79 @@ class ProfileScreen extends StatelessWidget {
         title: const Text('Perfil', style:  TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700)),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: const Image(image: AssetImage('assets/food/hamburgerBanner.jpg'), fit: BoxFit.cover)
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (BuildContext context, AuthState state) {
+            final UserModel user = state.user!;
+            return Container(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        color: Theme.of(context).primaryColor
+                        child: const Image(image: AssetImage('assets/food/hamburgerBanner.jpg'), fit: BoxFit.cover)
                       ),
-                      child: const Icon(Icons.edit, color: Colors.black, size: 20),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              const Text("manuel castro",     style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
-              const SizedBox(height: 2),
-              const Text("manuel.castrobarinas@gmail.com",  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 16)),
-              const SizedBox(height: 20),
-              /// -- BUTTON
-              SizedBox(
-                width: 200,
-                child:  ButtonComponent(
-                  borderRadius: 100,
-                  minWidth: double.infinity, 
-                  minHeight: 50, 
-                  function: () => Navigator.pushNamed(context, 'editprofile'),
-                  text: 'tEditProfile', 
-                  isLoading: false,
-                  backgroundColor: const Color(0xffff9500),
-                )
-              ),
-              const SizedBox(height: 20),
-              const Divider(color: Colors.black12),
-              const SizedBox(height: 10),
-              /// -- MENU
-              ProfileMenuWidget(
-                title: "Settings",
-                icon: Icons.settings,
-                onPress: () {}
-              ),
-              ProfileMenuWidget(
-                title: "Tarjetas",
-                icon: Icons.wallet,
-                onPress: () {}
-              ),
-              ProfileMenuWidget(
-                title: "User Management",
-                icon: Icons.person_2_sharp,
-                onPress: () {}
-              ),
-              const Divider(color: Colors.black12),
-              const SizedBox(height: 10),
-              ProfileMenuWidget(
-                title : "Información",
-                icon  : Icons.info_outline_rounded,
-                onPress: () {}
-              ),
-              ProfileMenuWidget(
-                title : "Cerrar sesión",
-                icon  : Icons.logout_rounded,
-                textColor: Theme.of(context).primaryColor,
-                endIcon: false,
-                onPress: () async {
-                  AuthService.deleteToken();
-                  Navigator.popAndPushNamed(context, 'login');
-                }
-              ),
-            ],
-          ),
+                    const SizedBox(height: 10),
+                    Text(user.name,  style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+                    const SizedBox(height: 2),
+                    Text(user.email,  style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 16)),
+                    const SizedBox(height: 20),
+                    /// -- BUTTON
+                    SizedBox(
+                      width: 200,
+                      child:  ButtonComponent(
+                        borderRadius: 100,
+                        minWidth: double.infinity, 
+                        minHeight: 50, 
+                        function: () => Navigator.pushNamed(context, 'editprofile'),
+                        text: 'Editar Perfil', 
+                        isLoading: false,
+                        backgroundColor: const Color(0xffff9500),
+                      )
+                    ),
+                    const SizedBox(height: 20),
+                    const Divider(color: Colors.black12),
+                    const SizedBox(height: 10),
+                    /// -- MENU
+                    ProfileMenuWidget(
+                      title: "Settings",
+                      icon: Icons.settings,
+                      onPress: () {}
+                    ),
+                    ProfileMenuWidget(
+                      title: "Tarjetas",
+                      icon: Icons.wallet,
+                      onPress: () {}
+                    ),
+                    ProfileMenuWidget(
+                      title: "User Management",
+                      icon: Icons.person_2_sharp,
+                      onPress: () {}
+                    ),
+                    const Divider(color: Colors.black12),
+                    const SizedBox(height: 10),
+                    const ProfileMenuWidget(
+                      title : "Terminos y condiciones",
+                      icon  : Icons.info_outline_rounded,
+                      onPress: showTermnsAndConditions
+                    ),
+                    ProfileMenuWidget(
+                      title : "Cerrar sesión",
+                      icon  : Icons.logout_rounded,
+                      textColor: Theme.of(context).primaryColor,
+                      endIcon: false,
+                      onPress: () async {
+                        AuthService.deleteToken();
+                        Navigator.popAndPushNamed(context, 'login');
+                      }
+                    ),
+                  ],
+                ),
+              );
+          },
         ),
       ),
     );

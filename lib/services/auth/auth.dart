@@ -16,8 +16,6 @@ class AuthService  implements AuthRules {
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
   final String _backendUrl = dotenv.get('BACKEND_URL');
   
-  bool isAuth = false;
-  
   @override
   Future<UserModel> register({required String name, required String email, required String password, required String phone}) async { 
     try {

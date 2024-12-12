@@ -12,4 +12,9 @@ class OnSetLoadingRequestEvent extends AuthEvent {
   final bool isLoadRequest;
 
   OnSetLoadingRequestEvent({required this.isLoadRequest});
-} 
+}
+
+class OnSetShowPasswordEvent extends AuthEvent {
+  final bool showPassword;
+  OnSetShowPasswordEvent({required this.showPassword});
+}

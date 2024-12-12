@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:platosyplan/bloc/recipe/recipes_bloc.dart';
 import 'package:platosyplan/presentation/screens/screens.dart';
+import '../../../components/components.dart';
+
+
 
 class AllRecetsView extends StatelessWidget {
   const AllRecetsView({super.key});
@@ -10,6 +13,7 @@ class AllRecetsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final  RecipesBloc recipeBloc = BlocProvider.of<RecipesBloc>(context);
     return Scaffold(
+      drawer: const DrawerPersonal(),
       backgroundColor: const Color(0xfff6f7fc),
       body: FutureBuilder(
         future  : recipeBloc.getAllRecipes(), 

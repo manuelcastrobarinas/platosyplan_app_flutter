@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:platosyplan/components/components.dart';
+import '../../../components/components.dart';
 import '../../screens/screens.dart';
 
 

@@ -23,8 +23,8 @@ class MyRecipesScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 ButtonComponent(
                   minWidth: size.width * 0.85, 
-                  minHeight: 55, 
-                  function: () {}, 
+                  minHeight: 50, 
+                  function: () => Navigator.pushNamed(context, 'nameanddescription'), 
                   text: 'Crear Receta', 
                   isLoading: false
                 ),
@@ -64,13 +64,14 @@ class _ListOfRecipesCreated extends StatelessWidget {
       itemCount   : 15,
       separatorBuilder: (context, index) => const Divider(height: 10, color: Colors.black12),
       itemBuilder : (context, index) =>  ListTile(
-        title: const Text('Hamburguesa', style: TextStyle(fontSize: 16, overflow: TextOverflow.ellipsis), maxLines: 1),
+        dense   : true,
+        title   : const Text('Hamburguesa', style: TextStyle(fontSize: 16, overflow: TextOverflow.ellipsis), maxLines: 1),
         subtitle: const Text('Hamburguesa', style: TextStyle(fontSize: 14, overflow: TextOverflow.ellipsis), maxLines: 1),
-        leading: const SizedBox(
-          height: 45,
-          width : 45,
-          child: FadeInImage(
-            fit: BoxFit.cover,
+        leading : const SizedBox(
+          height  : 45,
+          width   : 45,
+          child   : FadeInImage(
+            fit     : BoxFit.cover,
             placeholder:  AssetImage("assets/loading-food.gif"), 
             image:  AssetImage("assets/food/hamburgerBanner.jpg")
           ),

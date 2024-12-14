@@ -7,3 +7,4 @@ export 'package:platosyplan/presentation/views/cookings_steps_view.dart';
 export 'package:platosyplan/presentation/views/recipe_view.dart';
 export 'package:platosyplan/presentation/views/introduction_view.dart';
 export 'package:platosyplan/presentation/views/recets/my_recipes_view.dart';
+export 'package:platosyplan/presentation/views/recets/create/name_and_description_view.dart';

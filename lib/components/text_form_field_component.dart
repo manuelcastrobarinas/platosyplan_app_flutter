@@ -8,7 +8,7 @@ class TextformfieldComponent extends StatelessWidget {
   final TextInputType keyboardType;
   final bool? haveSuffixIcon;
   final bool isPassword;
-  final IconData icon;
+  final IconData? icon;
   final String? Function(String)? validatorFunction;
   final String? suffixText;
 
@@ -19,7 +19,7 @@ class TextformfieldComponent extends StatelessWidget {
     required this.keyboardType, 
     this.haveSuffixIcon = false,
     this.isPassword     = false,
-    required this.icon,
+    this.icon,
     this.validatorFunction, 
     this.suffixText,
   });
@@ -38,8 +38,8 @@ class TextformfieldComponent extends StatelessWidget {
       },
       decoration   : InputDecoration(  
         suffixText : suffixText,
-        label      : Text(label),
-        prefixIcon :  Icon(icon, color: Colors.black),
+        label      : Text(label, style: const TextStyle(fontSize: 14.0, color: Colors.black54)),
+        prefixIcon : (icon != null) ? Icon(icon, color: Colors.black) : null,
         suffixIcon : (haveSuffixIcon == true) ? IconButton(
           icon      : const Icon(Icons.remove_red_eye_rounded),
           onPressed : () {

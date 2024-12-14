@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:platosyplan/components/slidershow_component.dart';
+import 'package:platosyplan/components/progress/slidershow_component.dart';
 import 'package:platosyplan/models/recipe.dart';
 
 import '../../bloc/steps/steps_bloc.dart';

@@ -8,7 +8,7 @@ class TwoSelectImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final List<bool> stepsStatus = [true, true, false, false];
+    final List<bool> stepsStatus = [true, true, false, false, false, false];
     
     return SizedBox(
       // color: Colors.grey[200],
@@ -22,7 +22,7 @@ class TwoSelectImageScreen extends StatelessWidget {
           children: [
             SizedBox(
               width: 60,
-              child: TimelineVerticalComponent(stepsStatus: stepsStatus, heightToSpaceToNodes: size.height * 0.14),
+              child: TimelineVerticalComponent(stepsStatus: stepsStatus, heightToSpaceToNodes: size.height * 0.11),
             ),
             Expanded(
               child: Container(
@@ -57,7 +57,7 @@ class TwoSelectImageScreen extends StatelessWidget {
                     const SizedBox(height: 30.0),
                     Container(
                       width : double.infinity,
-                      height: size.height * 0.3,
+                      height: size.height * 0.32,
                       decoration: BoxDecoration(
                         color : Colors.grey[50],
                         borderRadius: BorderRadius.circular(10),
@@ -112,7 +112,7 @@ class TwoSelectImageScreen extends StatelessWidget {
                           isLoading : false,
                           minWidth  : size.width * 0.45,
                           text      : 'Siguiente', 
-                          function  : () => Navigator.pushNamed(context, 'selectimagerecipe'),
+                          function  : () => Navigator.pushNamed(context, 'timedifficulty'),
                         ),
                       ],
                     ),

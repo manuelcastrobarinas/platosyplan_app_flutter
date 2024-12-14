@@ -60,7 +60,7 @@ class TimelineVerticalComponent extends StatelessWidget {
               );
           }
         },
-        itemExtentBuilder: (_, __) => 100.0,
+        itemExtentBuilder: (_, __) => heightToSpaceToNodes,
         itemCount: stepsStatus.length,
       ),
     );

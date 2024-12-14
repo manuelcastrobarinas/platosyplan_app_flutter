@@ -1,36 +1,19 @@
 import 'package:flutter/material.dart';
 
+typedef CategoryIconMapper = IconData Function(String category);
+
 class CategorySelectorComponent extends StatefulWidget {
-  const CategorySelectorComponent({super.key});
+
+  final List<String> categories;
+  final CategoryIconMapper iconMapper;
+  const CategorySelectorComponent({super.key, required this.categories, required this.iconMapper});
 
   @override
   State<CategorySelectorComponent> createState() => _CategorySelectorComponentState();
 }
 
 class _CategorySelectorComponentState extends State<CategorySelectorComponent> {
-  final List<String> categories = [
-    'Mariscos',
-    'Comida Rápida',
-    'Vegetariana',
-    'Postres',
-    'Sopas',
-    'Carnes',
-    'Ensaladas',
-    'Desayunos',
-    'Bebidas',
-    'Pasta',
-    'Parrilladas',
-    'Mexicana',
-    'Italiana',
-    'Asiática',
-    'Masas',
-    'Aderezos',
-    'Saludable',
-    'Snacks',
-    'Típicos',
-    'Fusión',
-  ];
-
+ 
   String? selectedCategory;
 
   @override
@@ -46,14 +29,14 @@ class _CategorySelectorComponentState extends State<CategorySelectorComponent> {
         initialValue: selectedCategory,
         onSelected: (String newValue) => setState(() => selectedCategory = newValue),
         itemBuilder: (BuildContext context) {
-          return categories.map((String category) {
+          return widget.categories.map((String category) {
             return PopupMenuItem<String>(
               value: category,
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(
                   children: [
-                    Icon(_getCategoryIcon(category), size: 20, color: Theme.of(context).primaryColor),
+                    Icon(widget.iconMapper(category), size: 20, color: Theme.of(context).primaryColor),
                     const SizedBox(width: 10),
                     Text(category),
                   ],
@@ -67,7 +50,7 @@ class _CategorySelectorComponentState extends State<CategorySelectorComponent> {
           child: Row(
             children: <Widget>[
               if (selectedCategory != null) ...<Widget>[
-                Icon(_getCategoryIcon(selectedCategory!), size: 20, color: Theme.of(context).primaryColor),
+                Icon(widget.iconMapper(selectedCategory!), size: 20, color: Theme.of(context).primaryColor),
                 const SizedBox(width: 10),
               ],
               Expanded(
@@ -79,52 +62,5 @@ class _CategorySelectorComponentState extends State<CategorySelectorComponent> {
         ),
       ),
     );
-  }
-
-  IconData _getCategoryIcon(String category) {
-    switch (category.toLowerCase()) {
-      case 'mariscos':
-        return Icons.set_meal;
-      case 'comida rápida':
-        return Icons.fastfood;
-      case 'vegetariana':
-        return Icons.eco;
-      case 'postres':
-        return Icons.cake;
-      case 'sopas':
-        return Icons.soup_kitchen;
-      case 'carnes':
-        return Icons.restaurant;
-      case 'ensaladas':
-        return Icons.local_dining;
-      case 'desayunos':
-        return Icons.free_breakfast;
-      case 'bebidas':
-        return Icons.local_drink;
-      case 'pasta':
-        return Icons.dinner_dining;
-      case 'parrilladas':
-        return Icons.outdoor_grill;
-      case 'mexicana':
-        return Icons.local_pizza;
-      case 'italiana':
-        return Icons.local_pizza;
-      case 'asiática':
-        return Icons.ramen_dining;
-      case 'masas':
-        return Icons.bakery_dining;
-      case 'aderezos':
-        return Icons.water_drop;
-      case 'saludable':
-        return Icons.spa;
-      case 'snacks':
-        return Icons.lunch_dining;
-      case 'típicos':
-        return Icons.food_bank;
-      case 'fusión':
-        return Icons.restaurant_menu;
-      default:
-        return Icons.restaurant_menu;
-    }
   }
 }

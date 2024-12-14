@@ -9,3 +9,4 @@ export 'package:platosyplan/presentation/screens/introduction_screen.dart';
 export 'package:platosyplan/presentation/screens/recets/my_recipes_screen.dart';
 export 'package:platosyplan/presentation/screens/recets/create/one_name_and_description_screen.dart';
 export 'package:platosyplan/presentation/screens/recets/create/two_select_image_screen.dart';
+export 'package:platosyplan/presentation/screens/recets/create/three_time_difficulty_screen.dart';

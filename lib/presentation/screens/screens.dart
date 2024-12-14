@@ -7,4 +7,5 @@ export 'package:platosyplan/presentation/screens/cooking_steps_screen.dart';
 export 'package:platosyplan/presentation/screens/recipe_screen.dart';
 export 'package:platosyplan/presentation/screens/introduction_screen.dart';
 export 'package:platosyplan/presentation/screens/recets/my_recipes_screen.dart';
-export 'package:platosyplan/presentation/screens/recets/create/name_and_description_screen.dart';
+export 'package:platosyplan/presentation/screens/recets/create/one_name_and_description_screen.dart';
+export 'package:platosyplan/presentation/screens/recets/create/two_select_image_screen.dart';

@@ -78,7 +78,7 @@ class NameAndDescriptionScreen extends StatelessWidget {
                           isLoading : false,
                           minWidth  : size.width * 0.45,
                           text      : 'Siguiente', 
-                          function  : () {},
+                          function  : () => Navigator.pushNamed(context, 'selectimagerecipe'),
                         ),
                       ],
                     ),
@@ -93,10 +93,10 @@ class NameAndDescriptionScreen extends StatelessWidget {
   }
 }
 
-  // image
-  // calification
   // time_create
   // difficulty
+  
+  
   // ingredients
   // nutricional_table
   // utensils

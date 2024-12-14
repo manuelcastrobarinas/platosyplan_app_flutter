@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:platosyplan/presentation/screens/recets/create/one_name_and_description_screen.dart';
+import '../../../screens/screens.dart';
 
-class NameAndDescriptionView extends StatelessWidget {
-  const NameAndDescriptionView({super.key});
+class TwoSelectImageView extends StatelessWidget {
+  const TwoSelectImageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Crear Receta', style: TextStyle(fontWeight: FontWeight.w600)),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
-        ),
+        )
       ),
-      body: const NameAndDescriptionScreen()
+      body: const TwoSelectImageScreen(),
     );
   }
 }

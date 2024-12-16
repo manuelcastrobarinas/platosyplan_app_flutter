@@ -8,7 +8,7 @@ class TwoSelectImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final List<bool> stepsStatus = [true, true, false, false, false, false];
+    final List<bool> stepsStatus = [true, true, false, false, false, false, false];
     
     return SizedBox(
       // color: Colors.grey[200],

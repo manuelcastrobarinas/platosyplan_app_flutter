@@ -7,7 +7,7 @@ class NameAndDescriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final List<bool> stepsStatus = [true, false, false, false, false, false];
+    final List<bool> stepsStatus = [true, false, false, false, false, false, false];
     final List<String> categories = <String>  [
       'Mariscos',
       'Comida Rápida',

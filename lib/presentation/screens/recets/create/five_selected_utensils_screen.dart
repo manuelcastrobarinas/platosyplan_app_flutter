@@ -110,7 +110,7 @@ class _FiveSelectedUtensilsScreenState extends State<FiveSelectedUtensilsScreen>
                       const SizedBox(height: 10.0),
                       (selectedUtensils.isEmpty) 
                       ? ListTile(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.grey.shade300),),
+                          shape   : RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.grey.shade300),),
                           subtitle: const Text('No tienes utensilios seleccionados. tienes que agregar utensilios para crear tu receta.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400),textAlign: TextAlign.justify),
                           trailing: const SizedBox(),
                         ) 
@@ -140,7 +140,7 @@ class _FiveSelectedUtensilsScreenState extends State<FiveSelectedUtensilsScreen>
                             isLoading: false,
                             minWidth: size.width * 0.45,
                             text: 'Siguiente',
-                            function: selectedUtensils.isEmpty ? null : () =>  Navigator.pushNamed(context, 'selectedingredients'),
+                            function: selectedUtensils.isEmpty ? null : () =>  Navigator.pushNamed(context, 'nutritionaltable'),
                           ),
                         ],
                       ),

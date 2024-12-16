@@ -12,3 +12,4 @@ export 'package:platosyplan/presentation/views/recets/create/two_select_image_vi
 export 'package:platosyplan/presentation/views/recets/create/three_time_difficulty_view.dart';
 export 'package:platosyplan/presentation/views/recets/create/four_selected_ingrdients_view.dart';
 export 'package:platosyplan/presentation/views/recets/create/five_selected_utensils_view.dart';
+export 'package:platosyplan/presentation/views/recets/create/six_nutritional_table_view.dart';

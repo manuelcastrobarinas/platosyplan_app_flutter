@@ -16,4 +16,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   'nameanddescription'  : (_) => const NameAndDescriptionView(),
   'selectimagerecipe'   : (_) => const TwoSelectImageView(),
   'timedifficulty' : (_) => const ThreeTimeDifficultyView(),
+  'selectedingredients' : (_) => const FourSelectedIngredientsView(),
 };

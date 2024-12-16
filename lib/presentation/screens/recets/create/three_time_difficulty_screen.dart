@@ -71,7 +71,7 @@ class ThreeTimeDifficultyScreen extends StatelessWidget {
                             isLoading : false,
                             minWidth  : size.width * 0.45,
                             text      : 'Siguiente', 
-                            function  : () => Navigator.pushNamed(context, 'selectimagerecipe'),
+                            function  : () => Navigator.pushNamed(context, 'selectedingredients'),
                           ),
                         ],
                       ),

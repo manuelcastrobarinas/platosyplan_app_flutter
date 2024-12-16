@@ -10,3 +10,4 @@ export 'package:platosyplan/presentation/views/recets/my_recipes_view.dart';
 export 'package:platosyplan/presentation/views/recets/create/one_name_and_description_view.dart';
 export 'package:platosyplan/presentation/views/recets/create/two_select_image_view.dart';
 export 'package:platosyplan/presentation/views/recets/create/three_time_difficulty_view.dart';
+export 'package:platosyplan/presentation/views/recets/create/four_selected_ingrdients_view.dart';

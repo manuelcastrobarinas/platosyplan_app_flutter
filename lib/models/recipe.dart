@@ -193,15 +193,15 @@ class Ingredient {
 }
 
 class NutricionalTable {
-  Calories? calories;
-  Calories? fat;
-  Calories? saturedFat;
-  Calories? carbohidrate;
-  Calories? sugar;
-  Calories? dietaryFiber;
-  Calories? protein;
-  Calories? cholesterol;
-  Calories? sodium;
+  TableElement? calories;
+  TableElement? fat;
+  TableElement? saturedFat;
+  TableElement? carbohidrate;
+  TableElement? sugar;
+  TableElement? dietaryFiber;
+  TableElement? protein;
+  TableElement? cholesterol;
+  TableElement? sodium;
 
   NutricionalTable({
     this.calories,
@@ -220,15 +220,15 @@ class NutricionalTable {
   String toRawJson() => json.encode(toJson());
 
   factory NutricionalTable.fromJson(Map<String, dynamic> json) => NutricionalTable(
-    calories: json["calories"] == null ? null : Calories.fromJson(json["calories"]),
-    fat: json["fat"] == null ? null : Calories.fromJson(json["fat"]),
-    saturedFat: json["satured_fat"] == null ? null : Calories.fromJson(json["satured_fat"]),
-    carbohidrate: json["carbohidrate"] == null ? null : Calories.fromJson(json["carbohidrate"]),
-    sugar: json["sugar"] == null ? null : Calories.fromJson(json["sugar"]),
-    dietaryFiber: json["dietary_fiber"] == null ? null : Calories.fromJson(json["dietary_fiber"]),
-    protein: json["protein"] == null ? null : Calories.fromJson(json["protein"]),
-    cholesterol: json["cholesterol"] == null ? null : Calories.fromJson(json["cholesterol"]),
-    sodium: json["sodium"] == null ? null : Calories.fromJson(json["sodium"]),
+    calories: json["calories"] == null ? null : TableElement.fromJson(json["calories"]),
+    fat: json["fat"] == null ? null : TableElement.fromJson(json["fat"]),
+    saturedFat: json["satured_fat"] == null ? null : TableElement.fromJson(json["satured_fat"]),
+    carbohidrate: json["carbohidrate"] == null ? null : TableElement.fromJson(json["carbohidrate"]),
+    sugar: json["sugar"] == null ? null : TableElement.fromJson(json["sugar"]),
+    dietaryFiber: json["dietary_fiber"] == null ? null : TableElement.fromJson(json["dietary_fiber"]),
+    protein: json["protein"] == null ? null : TableElement.fromJson(json["protein"]),
+    cholesterol: json["cholesterol"] == null ? null : TableElement.fromJson(json["cholesterol"]),
+    sodium: json["sodium"] == null ? null : TableElement.fromJson(json["sodium"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -244,20 +244,20 @@ class NutricionalTable {
   };
 }
 
-class Calories {
+class TableElement {
   String? name;
   int amount;
 
-  Calories({
+  TableElement({
     this.name,
     required this.amount,
   });
 
-  factory Calories.fromRawJson(String str) => Calories.fromJson(json.decode(str));
+  factory TableElement.fromRawJson(String str) => TableElement.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Calories.fromJson(Map<String, dynamic> json) => Calories(
+  factory TableElement.fromJson(Map<String, dynamic> json) => TableElement(
     name: json["name"],
     amount: json["amount"],
   );

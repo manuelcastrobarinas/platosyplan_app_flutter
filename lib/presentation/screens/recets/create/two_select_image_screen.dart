@@ -55,54 +55,9 @@ class TwoSelectImageScreen extends StatelessWidget {
                       ]
                     )),
                     const SizedBox(height: 30.0),
-                    Container(
-                      width : double.infinity,
-                      height: size.height * 0.32,
-                      decoration: BoxDecoration(
-                        color : Colors.grey[50],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey[200]!),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment : MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(Icons.image, size: 50.0, color: Colors.grey[400]),
-                            const Text('Selecciona una imagen', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black)),
-                            ButtonComponent(
-                              backgroundColor: Theme.of(context).secondaryHeaderColor,
-                              minHeight : 45,
-                              isLoading : false,
-                              minWidth  : size.width * 0.45,
-                              text      : 'Seleccionar imagen', 
-                              function  : () {} //TODO: ABRIR LA IMAGEN
-                            ),
-                             Column(
-                               children: [
-                                 RichText(
-                                  text: const TextSpan(
-                                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: Colors.black),
-                                  children: [
-                                    TextSpan(text: '- Puedes subir fotos en formato', style: TextStyle(fontWeight: FontWeight.w400)),
-                                    TextSpan(text: ' JPG, PNG etc.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
-                                  ]
-                                )),
-                                RichText(
-                                  text: const TextSpan(
-                                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: Colors.black),
-                                  children: [
-                                    TextSpan(text: '- Procura que la imagen sea', style: TextStyle(fontWeight: FontWeight.w400)),
-                                    TextSpan(text: ' horizontal.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
-                                  ]
-                                )),
-                               ],
-                             ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    _SelectImage(
+                      size: size, 
+                      title: 'Selecciona una imagen'),
                     const SizedBox(height: 50.0),
                     Row(
                       children: [
@@ -121,6 +76,69 @@ class TwoSelectImageScreen extends StatelessWidget {
               )
             )
           ]
+        ),
+      ),
+    );
+  }
+}
+
+class _SelectImage extends StatelessWidget {
+  final String title; 
+  
+  const _SelectImage({
+    required this.size, 
+    required this.title,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width : double.infinity,
+      height: size.height * 0.32,
+      decoration: BoxDecoration(
+        color : Colors.grey[50],
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey[200]!),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment : MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.image, size: 50.0, color: Colors.grey[400]),
+            Text(title, style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black)),
+            ButtonComponent(
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
+              minHeight : 45,
+              isLoading : false,
+              minWidth  : size.width * 0.45,
+              text      : 'Seleccionar imagen', 
+              function  : () {} //TODO: ABRIR LA IMAGEN
+            ),
+             Column(
+               children: [
+                 RichText(
+                  text: const TextSpan(
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: Colors.black),
+                  children: [
+                    TextSpan(text: '- Puedes subir fotos en formato', style: TextStyle(fontWeight: FontWeight.w400)),
+                    TextSpan(text: ' JPG, PNG etc.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
+                  ]
+                )),
+                RichText(
+                  text: const TextSpan(
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: Colors.black),
+                  children: [
+                    TextSpan(text: '- Procura que la imagen sea', style: TextStyle(fontWeight: FontWeight.w400)),
+                    TextSpan(text: ' horizontal.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
+                  ]
+                )),
+               ],
+             ),
+          ],
         ),
       ),
     );

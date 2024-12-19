@@ -21,7 +21,6 @@ class AllRecetsScreen extends StatelessWidget {
         ),
         child: BlocBuilder<RecipesBloc, RecipesState>(
           builder: (context, state) {
-            if(state is RecipesInitial) {
               return (state.allRecipes!.isEmpty) ? const Center(child: Text("no hay recetas creadas"))
                : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,8 +48,6 @@ class AllRecetsScreen extends StatelessWidget {
                   )
                 ],
               );
-            }
-            return const Text('No data');
           },
         ),
       ),

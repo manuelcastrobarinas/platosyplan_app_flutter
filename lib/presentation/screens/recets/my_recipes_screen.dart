@@ -72,7 +72,7 @@ class _ListOfRecipesCreated extends StatelessWidget {
           width   : 45,
           child   : FadeInImage(
             fit     : BoxFit.cover,
-            placeholder:  AssetImage("assets/loading-food.gif"), 
+            placeholder:  AssetImage("assets/food/loading-food.gif"), 
             image:  AssetImage("assets/food/hamburgerBanner.jpg")
           ),
         ),

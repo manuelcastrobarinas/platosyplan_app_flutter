@@ -6,3 +6,4 @@ export 'package:platosyplan/components/text_form_field_component.dart';
 export 'package:platosyplan/components/painters/header_curve.dart';
 export 'package:platosyplan/components/navegation/button_component.dart';
 export 'package:platosyplan/components/forms/category_selector_component.dart';
+export 'package:platosyplan/components/camera/select_image_component.dart';

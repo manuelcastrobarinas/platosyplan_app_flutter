@@ -47,3 +47,13 @@ class OnSetCreateNutricionalTableRecipeEvent extends RecipesEvent{
   final NutricionalTable nutricionalTable;
   OnSetCreateNutricionalTableRecipeEvent({required this.nutricionalTable});
 }
+
+class OnSetCreateRecipeImageEvent extends RecipesEvent{
+  final File recipeImage;
+  OnSetCreateRecipeImageEvent({required this.recipeImage});
+}
+
+class OnSetCreateStepsImagesRecipeEvent extends RecipesEvent{
+  final List<File> stepsImages;
+  OnSetCreateStepsImagesRecipeEvent({required this.stepsImages});
+}

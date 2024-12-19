@@ -12,6 +12,8 @@ final class RecipesState {
   final List<Ingredient> createdSelectedIngredients;
   final NutricionalTable? nutricionalTable;
   final List<String> createdSelectedUtensils;
+  final File? recipeImage;
+  final List<File> stepsImages;
 
   RecipesState({
     this.allRecipes = const [],
@@ -23,6 +25,8 @@ final class RecipesState {
     this.nutricionalTable,
     this.createdSelectedIngredients = const [],
     this.createdSelectedUtensils    = const [],
+    this.stepsImages                = const [],
+    this.recipeImage,
   });
 
   RecipesState copyWith({
@@ -35,6 +39,8 @@ final class RecipesState {
     NutricionalTable? nutricionalTable,
     List<Ingredient>? createdSelectedIngredients,
     List<String>? createdSelectedUtensils,
+    List<File>? stepsImages,
+    File? recipeImage,
   }) => RecipesState(
     allRecipes: allRecipes ?? this.allRecipes,
     nameRecipe: nameRecipe ?? this.nameRecipe,
@@ -45,5 +51,7 @@ final class RecipesState {
     nutricionalTable: nutricionalTable ?? this.nutricionalTable,
     createdSelectedIngredients: createdSelectedIngredients ?? this.createdSelectedIngredients,
     createdSelectedUtensils: createdSelectedUtensils ?? this.createdSelectedUtensils,
+    stepsImages: stepsImages ?? this.stepsImages,
+    recipeImage: recipeImage ?? this.recipeImage,
   );
 }

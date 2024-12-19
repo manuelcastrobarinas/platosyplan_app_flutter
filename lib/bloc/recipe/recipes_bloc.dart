@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:platosyplan/models/recipe.dart';
@@ -19,6 +21,8 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
       on<OnSetCreateDifficultyRecipeEvent>      ((event, emit) => emit((state).copyWith(difficultyRecipe: event.difficultyRecipe)));
       on<OnSetCreateTimeCreateRecipeEvent>      ((event, emit) => emit((state).copyWith(timeCreateRecipe: event.timeCreateRecipe)));
       on<OnSetCreateNutricionalTableRecipeEvent>((event, emit) => emit((state).copyWith(nutricionalTable: event.nutricionalTable)));
+      on<OnSetCreateStepsImagesRecipeEvent>      ((event, emit) => emit((state).copyWith(stepsImages: event.stepsImages)));
+      on<OnSetCreateRecipeImageEvent>            ((event, emit) => emit((state).copyWith(recipeImage: event.recipeImage)));
   }
 
   Future<void> getAllRecipes() async {
@@ -34,4 +38,6 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
   void setCreateDifficultyRecipe({required String difficultyRecipe}) => add(OnSetCreateDifficultyRecipeEvent(difficultyRecipe: difficultyRecipe));
   void setCreateTimeCreateRecipe({required double timeCreateRecipe}) => add(OnSetCreateTimeCreateRecipeEvent(timeCreateRecipe: timeCreateRecipe));
   void setCreateNutricionalTableRecipe(NutricionalTable nutricionalTable) => add(OnSetCreateNutricionalTableRecipeEvent(nutricionalTable: nutricionalTable));
+  void setCreateRecipeImage(File recipeImage) => add(OnSetCreateRecipeImageEvent(recipeImage: recipeImage));
+  void setCreateStepsImagesRecipe(List<File> stepsImages) => add(OnSetCreateStepsImagesRecipeEvent(stepsImages: stepsImages));
 }

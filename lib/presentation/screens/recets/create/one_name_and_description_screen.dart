@@ -58,6 +58,7 @@ class NameAndDescriptionScreen extends StatelessWidget {
                   builder: (BuildContext context, RecipesState state) {
                     return Form(
                       key: formKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 35.0),
                         width : double.infinity,
@@ -120,7 +121,7 @@ class NameAndDescriptionScreen extends StatelessWidget {
                                   minWidth  : size.width * 0.45,
                                   text      : 'Siguiente', 
                                   function  : () {
-                                    if(_validateAllSteps(formKey: formKey, context: context, category: state.categoryRecipe)) {        
+                                    if(_validateAllSteps(formKey: formKey, context: context, category: state.categoryRecipe, nameRecipe: state.nameRecipe, descriptionRecipe: state.descriptionRecipe)) {        
                                       Navigator.pushNamed(context, 'selectimagerecipe');
                                     }
                                   } 
@@ -141,8 +142,11 @@ class NameAndDescriptionScreen extends StatelessWidget {
     );
   }
 
-  bool _validateAllSteps({required GlobalKey<FormState> formKey, required BuildContext context, required String? category}) {
-    if (!(formKey.currentState?.validate() ?? false)) return false;
+  bool _validateAllSteps({required GlobalKey<FormState> formKey, required BuildContext context, required String? category, required String? nameRecipe, required String? descriptionRecipe}) {
+
+    if (nameRecipe == null || nameRecipe.isEmpty && descriptionRecipe == null || descriptionRecipe!.isEmpty) {
+      if (!(formKey.currentState?.validate() ?? false)) return false;
+    }
     
     if (category == null || category.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Debes seleccionar una categoría')));

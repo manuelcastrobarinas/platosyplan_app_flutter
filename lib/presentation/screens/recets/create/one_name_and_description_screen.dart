@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../bloc/recipe/recipes_bloc.dart';
 import '../../../../components/components.dart';
 
 class NameAndDescriptionScreen extends StatelessWidget {
@@ -30,6 +32,12 @@ class NameAndDescriptionScreen extends StatelessWidget {
       'Típicos',
       'Fusión',
   ];
+
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController descriptionController = TextEditingController();
+
+    final RecipesBloc recipesBloc = BlocProvider.of<RecipesBloc>(context);
     
     return SingleChildScrollView(
       child: SizedBox(
@@ -46,66 +54,84 @@ class NameAndDescriptionScreen extends StatelessWidget {
                 child: TimelineVerticalComponent(stepsStatus: stepsStatus, heightToSpaceToNodes: size.height * 0.11),
               ),
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 35.0),
-                  width : double.infinity,
-                  height: double.infinity,
-                  color : Colors.white,
-                  child : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment : MainAxisAlignment.start,
-                    children: [
-                      const Text('Nombre y descripción', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w900)),
-                      const SizedBox(height: 10.0),
-                      const Text('Escribe el nombre del producto y su respectiva descripción. Recuerda que la redaccion debe ser clara y concisa. ademas debes tener en cuenta la ortografia y gramatica.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400), textAlign: TextAlign.justify),
-                      const SizedBox(height: 30.0),
-                      TextformfieldComponent(
-                        icon: Icons.title,
-                        controller: TextEditingController(),
-                        keyboardType: TextInputType.text,
-                        label: "Titulo del producto",
-                        suffixText: "titulo",
-                      ),
-                      const SizedBox(height: 30.0),
-                      TextformfieldComponent(
-                        controller: TextEditingController(),
-                        keyboardType: TextInputType.text,
-                        label: "descripción del producto",
-                        suffixText: "describe",              
-                      ),
-                      const SizedBox(height: 30.0),
-                      Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.grey.shade300),
-                        ),
-                        child: Column(
+                child: BlocBuilder<RecipesBloc, RecipesState>(
+                  builder: (BuildContext context, RecipesState state) {
+                    return Form(
+                      key: formKey,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 35.0),
+                        width : double.infinity,
+                        height: double.infinity,
+                        color : Colors.white,
+                        child : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment : MainAxisAlignment.start,
                           children: [
-                            const Text('Categoría', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w900)),
+                            const Text('Nombre y descripción', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w900)),
                             const SizedBox(height: 10.0),
-                            const Text('Selecciona la categoría a la que pertenece de la receta para que sea mas facil encontrarla por los demas usuarios.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400), textAlign: TextAlign.justify), 
-                            const SizedBox(height: 10.0),
-                            CategorySelectorComponent(categories: categories, iconMapper: _getCategoryIcon),
-                          ],
-                        ),
-                      ),         
-                      const SizedBox(height: 50.0),
-                      Row(
-                        children: [
-                          const Expanded(child: SizedBox()),
-                          ButtonComponent(
-                            minHeight : 45,
-                            isLoading : false,
-                            minWidth  : size.width * 0.45,
-                            text      : 'Siguiente', 
-                            function  : () => Navigator.pushNamed(context, 'selectimagerecipe'),
-                          ),
-                        ],
+                            const Text('Escribe el nombre del producto y su respectiva descripción. Recuerda que la redaccion debe ser clara y concisa. ademas debes tener en cuenta la ortografia y gramatica.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400), textAlign: TextAlign.justify),
+                            const SizedBox(height: 30.0),
+                            TextformfieldComponent(
+                              icon        : Icons.title,
+                              controller: nameController,
+                              keyboardType: TextInputType.text,
+                              label: state.nameRecipe == null ? "Titulo del producto" : state.nameRecipe!,
+                              suffixText: "titulo",
+                              onChanged: (value) => recipesBloc.setCreateNameRecipe(nameRecipe: value),
+                            ),
+                            const SizedBox(height: 30.0),
+                            TextformfieldComponent(
+                              controller  : descriptionController,
+                              maxLines    : null,
+                              keyboardType: TextInputType.text,
+                              label       : state.descriptionRecipe == null ? "descripción del producto" : state.descriptionRecipe!,
+                              suffixText  : "describe",
+                              onChanged   : (value) => recipesBloc.setCreateDescriptionRecipe(descriptionRecipe: value),
+                            ),
+                            const SizedBox(height: 30.0),
+                            Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey.shade300),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Categoría', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w900)),
+                                  const SizedBox(height: 10.0),
+                                  const Text('Selecciona la categoría a la que pertenece de la receta para que sea mas facil encontrarla por los demas usuarios.', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400), textAlign: TextAlign.justify), 
+                                  const SizedBox(height: 10.0),
+                                  CategorySelectorComponent(
+                                    categories: categories, 
+                                    iconMapper: _getCategoryIcon,
+                                    onSelected: (String category) => recipesBloc.setCreateCategoryRecipe(categoryRecipe: category),
+                                  ),
+                                ],
+                              ),
+                            ),         
+                            const SizedBox(height: 50.0),
+                            Row(
+                              children: [
+                                const Expanded(child: SizedBox()),
+                                ButtonComponent(
+                                  minHeight : 45,
+                                  isLoading : false,
+                                  minWidth  : size.width * 0.45,
+                                  text      : 'Siguiente', 
+                                  function  : () {
+                                    if(_validateAllSteps(formKey: formKey, context: context, category: state.categoryRecipe)) {        
+                                      Navigator.pushNamed(context, 'selectimagerecipe');
+                                    }
+                                  } 
+                                ),
+                              ],
+                            ),
+                          ]
+                        )
                       ),
-                    ]
-                  )
+                    );
+                  },
                 )
               )
             ]
@@ -113,6 +139,17 @@ class NameAndDescriptionScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _validateAllSteps({required GlobalKey<FormState> formKey, required BuildContext context, required String? category}) {
+    if (!(formKey.currentState?.validate() ?? false)) return false;
+    
+    if (category == null || category.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Debes seleccionar una categoría')));
+      return false;
+    }
+
+    return true;
   }
 
   IconData _getCategoryIcon(String category) {

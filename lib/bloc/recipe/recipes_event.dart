@@ -57,3 +57,13 @@ class OnSetCreateStepsImagesRecipeEvent extends RecipesEvent{
   final List<File> stepsImages;
   OnSetCreateStepsImagesRecipeEvent({required this.stepsImages});
 }
+
+class OnSetCreateStepsRecipeEvent extends RecipesEvent{
+  final List<StepCooking> createdStepsRecipe;
+  OnSetCreateStepsRecipeEvent({required this.createdStepsRecipe});
+}
+
+class OnSetIsLoadingRequestEvent extends RecipesEvent{
+  final bool isLoadingRequest;
+  OnSetIsLoadingRequestEvent({required this.isLoadingRequest});
+}

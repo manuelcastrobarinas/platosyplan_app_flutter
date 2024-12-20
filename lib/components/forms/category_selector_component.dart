@@ -6,7 +6,14 @@ class CategorySelectorComponent extends StatefulWidget {
 
   final List<String> categories;
   final CategoryIconMapper iconMapper;
-  const CategorySelectorComponent({super.key, required this.categories, required this.iconMapper});
+  final void Function(String) onSelected;
+
+  const CategorySelectorComponent({
+    super.key, 
+    required this.categories, 
+    required this.iconMapper,
+    required this.onSelected
+  });
 
   @override
   State<CategorySelectorComponent> createState() => _CategorySelectorComponentState();
@@ -27,7 +34,10 @@ class _CategorySelectorComponentState extends State<CategorySelectorComponent> {
         color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: const BorderSide(color: Colors.black12)),
         initialValue: selectedCategory,
-        onSelected: (String newValue) => setState(() => selectedCategory = newValue),
+        onSelected: (String newValue) {
+          setState(() => selectedCategory = newValue);
+          widget.onSelected(newValue);
+        },
         itemBuilder: (BuildContext context) {
           return widget.categories.map((String category) {
             return PopupMenuItem<String>(

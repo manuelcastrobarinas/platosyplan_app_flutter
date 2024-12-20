@@ -96,18 +96,21 @@ class _SixNutritionalTableScreenState extends State<SixNutritionalTableScreen> {
                                 text: 'Siguiente',
                                 function: () {
                                   final recipeBloc = context.read<RecipesBloc>();
+                                  if(caloriesController.text.isEmpty && fatController.text.isEmpty && saturedFatController.text.isEmpty && carbohidratesController.text.isEmpty && sugarController.text.isEmpty && dietaryFiberController.text.isEmpty && proteinController.text.isEmpty && cholesterolController.text.isEmpty && sodiumController.text.isEmpty){
+                                    Navigator.pushNamed(context, 'sevencreatesteps');
+                                  }
                                   recipeBloc.setCreateNutricionalTableRecipe(
                                     NutricionalTable(
-                                      calories      : TableElement(name: 'calorias', amount: int.parse(caloriesController.text)),
-                                      fat           : TableElement(name: 'grasas', amount: int.parse(fatController.text)),
-                                      saturedFat    : TableElement(name: 'grasas saturadas', amount: int.parse(saturedFatController.text)),
-                                      carbohidrate  : TableElement(name: 'carbohidratos', amount: int.parse(carbohidratesController.text)),
-                                      sugar         : TableElement(name: 'azucar', amount: int.parse(sugarController.text)),
-                                      dietaryFiber  : TableElement(name: 'fibra dietetica', amount: int.parse(dietaryFiberController.text)),
-                                      protein       : TableElement(name: 'proteina', amount: int.parse(proteinController.text)),
-                                      cholesterol   : TableElement(name: 'colesterol', amount: int.parse(cholesterolController.text)),
-                                      sodium        : TableElement(name: 'sodio', amount: int.parse(sodiumController.text)),
-                                    )
+                                      calories      : NutritionalTableElement(name: 'calorias', amount: caloriesController.text.isEmpty ? 0 : int.parse(caloriesController.text)),
+                                      fat           : NutritionalTableElement(name: 'grasas', amount: fatController.text.isEmpty ? 0 : int.parse(fatController.text)),
+                                      saturedFat    : NutritionalTableElement(name: 'grasas saturadas', amount: saturedFatController.text.isEmpty ? 0 : int.parse(saturedFatController.text)),
+                                      carbohidrate  : NutritionalTableElement(name: 'carbohidratos', amount: carbohidratesController.text.isEmpty ? 0 : int.parse(carbohidratesController.text)),
+                                      sugar         : NutritionalTableElement(name: 'azucar', amount: sugarController.text.isEmpty ? 0 : int.parse(sugarController.text)),
+                                      dietaryFiber  : NutritionalTableElement(name: 'fibra dietetica', amount: dietaryFiberController.text.isEmpty ? 0 : int.parse(dietaryFiberController.text)),
+                                      protein       : NutritionalTableElement(name: 'proteina', amount: proteinController.text.isEmpty ? 0 : int.parse(proteinController.text)),
+                                      cholesterol   : NutritionalTableElement(name: 'colesterol', amount: cholesterolController.text.isEmpty ? 0 : int.parse(cholesterolController.text)),
+                                      sodium        : NutritionalTableElement(name: 'sodio', amount: sodiumController.text.isEmpty ? 0 : int.parse(sodiumController.text)),
+                                    ) 
                                   );
                                   Navigator.pushNamed(context, 'sevencreatesteps');
                                 } 

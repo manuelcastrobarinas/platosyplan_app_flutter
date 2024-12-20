@@ -13,3 +13,4 @@ export 'package:platosyplan/presentation/screens/recets/create/three_time_diffic
 export 'package:platosyplan/presentation/screens/recets/create/four_selected_ingredients_screen.dart'; 
 export 'package:platosyplan/presentation/screens/recets/create/five_selected_utensils_screen.dart';
 export 'package:platosyplan/presentation/screens/recets/create/six_nutritional_table_screen.dart';
+export 'package:platosyplan/presentation/screens/recets/create/seven_steps_screen.dart';

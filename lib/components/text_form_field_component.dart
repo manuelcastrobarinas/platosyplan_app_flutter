@@ -12,8 +12,10 @@ class TextformfieldComponent extends StatelessWidget {
   final String? Function(String)? validatorFunction;
   final String? suffixText;
   final FocusNode? focusNode;
+  final void Function(String)? onChanged;
+  final int? maxLines;
 
-  const TextformfieldComponent({
+  const TextformfieldComponent({    
     super.key,
     required this.label,
     required this.controller,
@@ -24,6 +26,8 @@ class TextformfieldComponent extends StatelessWidget {
     this.validatorFunction,
     this.suffixText,
     this.focusNode,
+    this.onChanged,
+    this.maxLines = 1,
   });
 
   @override
@@ -39,6 +43,8 @@ class TextformfieldComponent extends StatelessWidget {
         if (validatorFunction != null) return validatorFunction!(value); 
         return null;
       },
+      onChanged : onChanged,
+      maxLines  : maxLines,
       decoration: InputDecoration(  
         suffixText: suffixText,
         label: Text(label, style: const TextStyle(fontSize: 14.0, color: Colors.black54)),

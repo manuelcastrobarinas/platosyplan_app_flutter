@@ -86,7 +86,7 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
                                     isLoading : state.isLoadingRequest,
                                     minWidth  : size.width * 0.45,
                                     text      : 'Crear receta',
-                                    function  : () {
+                                    function  : () async {
                                       //VALDATE STEPS DATA
                                       if (!_validateAllSteps()) return;
 
@@ -94,14 +94,23 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
                                         debugPrint('ESTAS ES LA IMAGEN  EN LA POSICION ${imagesSteps.indexOf(image)}:  ${image.path}');
                                       }
                                       
-                                      //SEND DATA TO BLOC
                                       final RecipesBloc recipesBloc = BlocProvider.of<RecipesBloc>(context);
                                       try {
+                                        //SEND DATA TO BLOC
                                         recipesBloc.setIsLoadingRequest(true);
                                         recipesBloc.setCreateStepsRecipe(steps);
                                         recipesBloc.setCreateStepsImagesRecipe(imagesSteps);
+
+                                        //CREATE RECIPE
+                                        await recipesBloc.createRecipe();
+
+                                        if(!context.mounted) return;
+                                        Navigator.pushNamed(context, 'navegation');
                                       } catch (e) {
-                                        debugPrint('Error al enviar los datos al bloc: $e');
+                                        debugPrint('Error al crear la receta $e');
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text(e.toString()))
+                                        );
                                       } finally {
                                         recipesBloc.setIsLoadingRequest(false);
                                       }
@@ -273,19 +282,27 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
 
     // Obtener todos los utensilios disponibles
     final state = context.read<RecipesBloc>().state;
-    final allUtensils = state.createdSelectedUtensils.toSet();
-    
-    // Obtener todos los utensilios seleccionados en todos los pasos
+    // Obtener todos los utensilios creados
+    final allUtensils = state.createdSelectedUtensils
+        .map((u) => u.name?.trim().toLowerCase())
+        .where((name) => name != null && name.isNotEmpty)
+        .cast<String>() // Convertimos explícitamente a un Iterable<String>
+        .toSet();
+
+    // Obtener todos los utensilios seleccionados en los pasos
     final selectedUtensils = <String>{};
     for (var step in steps) {
       if (step.utensiliosSteps != null) {
         selectedUtensils.addAll(
-          step.utensiliosSteps!.map((u) => u.name ?? '').where((name) => name.isNotEmpty)
+          step.utensiliosSteps!
+              .map((u) => u.name?.trim().toLowerCase())
+              .where((name) => name != null && name.isNotEmpty)
+              .cast<String>() // Convertimos explícitamente a un Iterable<String>
         );
       }
     }
 
-    // Verificar si hay utensilios sin seleccionar
+    // Verificar si hay utensilios creados que no están seleccionados en los pasos
     final unselectedUtensils = allUtensils.difference(selectedUtensils);
     if (unselectedUtensils.isNotEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -293,6 +310,8 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
       );
       return false;
     }
+
+
 
     // Validar ingredientes
     final allIngredients = state.createdSelectedIngredients;
@@ -416,7 +435,7 @@ class _SelectUtensils extends StatelessWidget {
     return BlocBuilder<RecipesBloc, RecipesState>(
       builder: (context, state) {
         // Obtener todos los utensilios disponibles
-        final allUtensils = state.createdSelectedUtensils.map((name) => Utensil(name: name)).toList();
+        final allUtensils = state.createdSelectedUtensils.map((Utensil utensil) => Utensil(name: utensil.name)).toList();
         
         // Obtener utensilios ya seleccionados en otros pasos
         final usedUtensils = <String>{};

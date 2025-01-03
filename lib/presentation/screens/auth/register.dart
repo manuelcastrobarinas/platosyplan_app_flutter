@@ -161,23 +161,22 @@ class _LogoAndTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Expanded(
-            flex: 3,
-            child: SizedBox(),
+            flex  : 1,
+            child : SizedBox(),
           ),
-          Expanded(
-            flex  : 4,
-            child : Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.10,
-                  child : Image.asset("assets/logo.png")
-                ),
+          Column(
+            children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.56,
+                height: MediaQuery.of(context).size.height * 0.10,
+                child : Image.asset("assets/logo.png")
+              ),
+              SizedBox(
                 child: Image.asset("assets/platosyplanfondo.png")
               ),
-              ],
-            ),
+            ],
+          ),
+          const Expanded(
+            child : SizedBox(),
           ),
         ]
       ),

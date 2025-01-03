@@ -31,6 +31,7 @@ class NameAndDescriptionScreen extends StatelessWidget {
       'Snacks',
       'Típicos',
       'Fusión',
+      'Carbohidratos Inteligente'
   ];
 
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -39,32 +40,32 @@ class NameAndDescriptionScreen extends StatelessWidget {
 
     final RecipesBloc recipesBloc = BlocProvider.of<RecipesBloc>(context);
     
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 60,
-                child: TimelineVerticalComponent(stepsStatus: stepsStatus, heightToSpaceToNodes: size.height * 0.11),
-              ),
-              Expanded(
-                child: BlocBuilder<RecipesBloc, RecipesState>(
-                  builder: (BuildContext context, RecipesState state) {
-                    return Form(
-                      key: formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 35.0),
-                        width : double.infinity,
-                        height: double.infinity,
-                        color : Colors.white,
-                        child : Column(
+    return SizedBox(
+      height:size.height,
+      width: size.width,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 60,
+              child: TimelineVerticalComponent(stepsStatus: stepsStatus, heightToSpaceToNodes: size.height * 0.11),
+            ),
+            Expanded(
+              child: BlocBuilder<RecipesBloc, RecipesState>(
+                builder: (BuildContext context, RecipesState state) {
+                  return Form(
+                    key: formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 35.0),
+                      width : double.infinity,
+                      height: double.infinity,
+                      color : Colors.white,
+                      child : SingleChildScrollView(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment : MainAxisAlignment.start,
                           children: [
@@ -129,14 +130,14 @@ class NameAndDescriptionScreen extends StatelessWidget {
                               ],
                             ),
                           ]
-                        )
-                      ),
-                    );
-                  },
-                )
+                        ),
+                      )
+                    ),
+                  );
+                },
               )
-            ]
-          ),
+            )
+          ]
         ),
       ),
     );
@@ -203,12 +204,3 @@ class NameAndDescriptionScreen extends StatelessWidget {
     }
   }
 }
-
-  // time_create
-  // difficulty
-  
-  
-  // ingredients
-  // nutricional_table
-  // utensils
-  // steps

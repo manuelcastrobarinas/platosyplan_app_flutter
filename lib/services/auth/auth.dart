@@ -6,7 +6,7 @@ import 'package:platosyplan/services/interfaces/auth_interface.dart';
 
 import '../../errors/api_errors.dart';
 
-class AuthService  implements AuthRules {
+class AuthService  implements AuthContract {
 
   final Dio _dio = Dio()
   ..options.connectTimeout = const Duration(seconds: 5)

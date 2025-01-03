@@ -14,7 +14,7 @@ class OnSetCreateSelectedIngredientsEvent extends RecipesEvent{
 }
 
 class OnSetCreateSelectedUtensilsEvent extends RecipesEvent{
-  final List<String> createdSelectedUtensils;
+  final List<Utensil> createdSelectedUtensils;
   OnSetCreateSelectedUtensilsEvent({required this.createdSelectedUtensils});
 }
 
@@ -67,3 +67,6 @@ class OnSetIsLoadingRequestEvent extends RecipesEvent{
   final bool isLoadingRequest;
   OnSetIsLoadingRequestEvent({required this.isLoadingRequest});
 }
+
+class OnCreateRecipeEvent extends RecipesEvent{}
+

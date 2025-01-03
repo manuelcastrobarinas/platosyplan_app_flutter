@@ -13,7 +13,7 @@ final class RecipesState {
   final String? descriptionRecipe;
   final List<Ingredient> createdSelectedIngredients;
   final NutricionalTable? nutricionalTable;
-  final List<String> createdSelectedUtensils;
+  final List<Utensil> createdSelectedUtensils;
   final File? recipeImage;
   final List<File> stepsImages;
   final List<StepCooking> createdStepsRecipe;
@@ -46,7 +46,7 @@ final class RecipesState {
     double? timeCreateRecipe,
     NutricionalTable? nutricionalTable,
     List<Ingredient>? createdSelectedIngredients,
-    List<String>? createdSelectedUtensils,
+    List<Utensil>? createdSelectedUtensils,
     List<File>? stepsImages,
     List<StepCooking>? createdStepsRecipe,
     File? recipeImage,

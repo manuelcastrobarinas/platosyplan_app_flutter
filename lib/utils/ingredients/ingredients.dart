@@ -9,11 +9,11 @@ final List<String> ingredientes = [
   'tomate', 'zanahoria', 'lechuga', 'cebolla', 'ajo', 'pimiento', 'papa',
   'brocoli', 'pepino', 'espinaca', 'calabaza', 'calabacin', 'berenjena',
   'apio', 'puerro', 'champinon', 'esparrago', 'coliflor', 'repollo',
-  'acelga', 'remolacha', 'nabo', 'rabano',
+  'acelga', 'remolacha', 'nabo', 'rabano', 'cebolla frita', 'patatas',
 
   // Carnes
   'pollo', 'carne', 'pescado', 'cerdo', 'jamon', 'pavo', 'cordero',
-  'ternera', 'salchicha', 'chorizo', 'bacon',
+  'ternera', 'salchicha', 'chorizo', 'bacon','chuleta de pollo',
 
   // Pescados y mariscos
   'atun', 'salmon', 'sardina', 'camaron', 'calamar', 'pulpo', 'mejillon',
@@ -21,7 +21,7 @@ final List<String> ingredientes = [
 
   // Lácteos y huevos
   'leche', 'queso', 'yogurt', 'mantequilla', 'crema', 'huevo', 'clara',
-  'yema',
+  'yema','queso monterrey', 'crema de leche',
 
   // Granos y cereales
   'arroz', 'quinoa', 'avena', 'trigo', 'maiz', 'cebada', 'centeno',
@@ -30,7 +30,7 @@ final List<String> ingredientes = [
   'espagueti', 'macarron', 'lasana', 'ravioli',
 
   // Legumbres
-  'frijoles', 'lentejas', 'garbanzos', 'habas', 'soja', 'guisantes',
+  'frijoles', 'lentejas', 'garbanzos', 'habas', 'soja', 'guisantes', 'frijoles verdes',
 
   // Condimentos y especias
   'sal', 'pimienta', 'comino', 'oregano', 'canela', 'curry', 'pimenton',
@@ -46,7 +46,7 @@ final List<String> ingredientes = [
   'aceite_oliva', 'aceite_girasol', 'manteca',
 
   // Endulzantes
-  'azucar', 'miel', 'sirope', 'stevia',
+  'azucar', 'miel', 'sirope', 'stevia', 'vestido de miel dijon',
 
   // Productos horneados
   'pan', 'croissant', 'bagel', 'muffin', 'galletas',
@@ -86,33 +86,36 @@ String getIngredientImage(String ingredient) {
     'coco': 'https://cdn-icons-png.flaticon.com/512/415/415734.png',
     
     // Verduras
-    'tomate': 'https://cdn-icons-png.flaticon.com/512/1412/1412511.png',
-    'zanahoria': 'https://cdn-icons-png.flaticon.com/512/1412/1412542.png',
-    'lechuga': 'https://cdn-icons-png.flaticon.com/512/1412/1412534.png',
-    'cebolla': 'https://cdn-icons-png.flaticon.com/512/1412/1412544.png',
-    'ajo': 'https://cdn-icons-png.flaticon.com/512/1412/1412525.png',
-    'pimiento': 'https://cdn-icons-png.flaticon.com/512/1412/1412508.png',
-    'papa': 'https://cdn-icons-png.flaticon.com/512/1412/1412540.png',
-    'brocoli': 'https://cdn-icons-png.flaticon.com/512/1412/1412533.png',
-    'pepino': 'https://cdn-icons-png.flaticon.com/512/1412/1412548.png',
-    'espinaca': 'https://cdn-icons-png.flaticon.com/512/1412/1412537.png',
-    'calabaza': 'https://cdn-icons-png.flaticon.com/512/1412/1412545.png',
-    'calabacin': 'https://cdn-icons-png.flaticon.com/512/1412/1412546.png',
-    'berenjena': 'https://cdn-icons-png.flaticon.com/512/1412/1412532.png',
-    'apio': 'https://cdn-icons-png.flaticon.com/512/1412/1412526.png',
-    'puerro': 'https://cdn-icons-png.flaticon.com/512/1412/1412539.png',
-    'champinon': 'https://cdn-icons-png.flaticon.com/512/1412/1412535.png',
-    'esparrago': 'https://cdn-icons-png.flaticon.com/512/1412/1412538.png',
-    'coliflor': 'https://cdn-icons-png.flaticon.com/512/1412/1412536.png',
-    'repollo': 'https://cdn-icons-png.flaticon.com/512/1412/1412541.png',
-    'acelga': 'https://cdn-icons-png.flaticon.com/512/1412/1412524.png',
-    'remolacha': 'https://cdn-icons-png.flaticon.com/512/1412/1412543.png',
-    'nabo': 'https://cdn-icons-png.flaticon.com/512/1412/1412547.png',
-    'rabano': 'https://cdn-icons-png.flaticon.com/512/1412/1412549.png',
+    'tomate'        : 'https://cdn-icons-png.flaticon.com/512/1412/1412511.png',
+    'zanahoria'     : 'https://cdn-icons-png.flaticon.com/512/1412/1412542.png',
+    'lechuga'       : 'https://cdn-icons-png.flaticon.com/512/1412/1412534.png',
+    'cebolla'       : 'https://cdn-icons-png.flaticon.com/512/1412/1412544.png',
+    'cebolla frita' : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/5d893672d5991d6a071db150-d0dd4edf.png',
+    'ajo'           : 'https://cdn-icons-png.flaticon.com/512/1412/1412525.png',
+    'pimiento'      : 'https://cdn-icons-png.flaticon.com/512/1412/1412508.png',
+    'papa'          : 'https://fruverianda.com/wp-content/uploads/2020/05/PAPA-SUCIA.jpg',
+    'patatas'     : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/6283a92d8766133d500324c1-28662181.png',
+    'brocoli'       : 'https://cdn-icons-png.flaticon.com/512/1412/1412533.png',
+    'pepino'        : 'https://cdn-icons-png.flaticon.com/512/1412/1412548.png',
+    'espinaca'      : 'https://cdn-icons-png.flaticon.com/512/1412/1412537.png',
+    'calabaza'      : 'https://cdn-icons-png.flaticon.com/512/1412/1412545.png',
+    'calabacin'     : 'https://cdn-icons-png.flaticon.com/512/1412/1412546.png',
+    'berenjena'     : 'https://cdn-icons-png.flaticon.com/512/1412/1412532.png',
+    'apio'          : 'https://cdn-icons-png.flaticon.com/512/1412/1412526.png',
+    'puerro'        : 'https://cdn-icons-png.flaticon.com/512/1412/1412539.png',
+    'champinon'     : 'https://cdn-icons-png.flaticon.com/512/1412/1412535.png',
+    'esparrago'     : 'https://cdn-icons-png.flaticon.com/512/1412/1412538.png',
+    'coliflor'      : 'https://cdn-icons-png.flaticon.com/512/1412/1412536.png',
+    'repollo'       : 'https://cdn-icons-png.flaticon.com/512/1412/1412541.png',
+    'acelga'        : 'https://cdn-icons-png.flaticon.com/512/1412/1412524.png',
+    'remolacha'     : 'https://cdn-icons-png.flaticon.com/512/1412/1412543.png',
+    'nabo'          : 'https://cdn-icons-png.flaticon.com/512/1412/1412547.png',
+    'rabano'        : 'https://cdn-icons-png.flaticon.com/512/1412/1412549.png',
     
     // Carnes
     'pollo': 'https://cdn-icons-png.flaticon.com/512/1046/1046751.png',
     'carne': 'https://cdn-icons-png.flaticon.com/512/3082/3082068.png',
+    'chuleta de pollo': 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/59c2b202c288007f56514711-4f7e3ff4.png',
     'pescado': 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
     'cerdo': 'https://cdn-icons-png.flaticon.com/512/1046/1046769.png',
     'jamon': 'https://cdn-icons-png.flaticon.com/512/3082/3082081.png',
@@ -134,14 +137,16 @@ String getIngredientImage(String ingredient) {
     'langosta': 'https://cdn-icons-png.flaticon.com/512/3075/3075969.png',
     
     // Lácteos y huevos
-    'leche': 'https://cdn-icons-png.flaticon.com/512/2674/2674486.png',
-    'queso': 'https://cdn-icons-png.flaticon.com/512/517/517561.png',
-    'yogurt': 'https://cdn-icons-png.flaticon.com/512/3082/3082094.png',
-    'mantequilla': 'https://cdn-icons-png.flaticon.com/512/2674/2674446.png',
-    'crema': 'https://cdn-icons-png.flaticon.com/512/2674/2674457.png',
-    'huevo': 'https://cdn-icons-png.flaticon.com/512/1652/1652088.png',
-    'clara': 'https://cdn-icons-png.flaticon.com/512/1652/1652089.png',
-    'yema': 'https://cdn-icons-png.flaticon.com/512/1652/1652090.png',
+    'leche'           : 'https://cdn-icons-png.flaticon.com/512/2674/2674486.png',
+    'queso'           : 'https://cdn-icons-png.flaticon.com/512/517/517561.png',
+    'queso monterrey' : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/55c109e74dab7112098b4567-4c6e0a43.png',
+    'yogurt'          : 'https://cdn-icons-png.flaticon.com/512/3082/3082094.png',
+    'mantequilla'     : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/image/5566e4d74dab71e3078b4569.png',
+    'crema'           : 'https://cdn-icons-png.flaticon.com/512/2674/2674457.png',
+    'huevo'           : 'https://cdn-icons-png.flaticon.com/512/1652/1652088.png',
+    'clara'           : 'https://cdn-icons-png.flaticon.com/512/1652/1652089.png',
+    'yema'            : 'https://cdn-icons-png.flaticon.com/512/1652/1652090.png',
+    'crema de leche'  : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/5550e1064dab71893e8b4569-dc52e70d.png',
 
       // Granos y cereales
     'arroz': 'https://cdn-icons-png.flaticon.com/512/3082/3082097.png',
@@ -159,25 +164,26 @@ String getIngredientImage(String ingredient) {
     'ravioli': 'https://cdn-icons-png.flaticon.com/512/3082/3082092.png',
     
     // Legumbres
-    'frijoles': 'https://cdn-icons-png.flaticon.com/512/1652/1652077.png',
-    'lentejas': 'https://cdn-icons-png.flaticon.com/512/1652/1652093.png',
-    'garbanzos': 'https://cdn-icons-png.flaticon.com/512/1652/1652079.png',
-    'habas': 'https://cdn-icons-png.flaticon.com/512/1652/1652080.png',
-    'soja': 'https://cdn-icons-png.flaticon.com/512/1652/1652106.png',
-    'guisantes': 'https://cdn-icons-png.flaticon.com/512/1652/1652081.png',
+    'frijoles'        : 'https://cdn-icons-png.flaticon.com/512/1652/1652077.png',
+    'lentejas'        : 'https://cdn-icons-png.flaticon.com/512/1652/1652093.png',
+    'garbanzos'       : 'https://cdn-icons-png.flaticon.com/512/1652/1652079.png',
+    'habas'           : 'https://cdn-icons-png.flaticon.com/512/1652/1652080.png',
+    'soja'            : 'https://cdn-icons-png.flaticon.com/512/1652/1652106.png',
+    'guisantes'       : 'https://cdn-icons-png.flaticon.com/512/1652/1652081.png',
+    'frijoles verdes' : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/image/5553931dfd2cb9db798b4569.png',
     
     // Condimentos y especias
-    'sal': 'https://cdn-icons-png.flaticon.com/512/1652/1652107.png',
-    'pimienta': 'https://cdn-icons-png.flaticon.com/512/2674/2674477.png',
-    'comino': 'https://cdn-icons-png.flaticon.com/512/2674/2674455.png',
-    'oregano': 'https://cdn-icons-png.flaticon.com/512/2674/2674475.png',
-    'canela': 'https://cdn-icons-png.flaticon.com/512/2674/2674452.png',
-    'curry': 'https://cdn-icons-png.flaticon.com/512/2674/2674458.png',
-    'pimenton': 'https://cdn-icons-png.flaticon.com/512/2674/2674476.png',
-    'jengibre': 'https://cdn-icons-png.flaticon.com/512/2674/2674466.png',
+    'sal'         : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/5566ceb7fd2cb95f7f8b4567-20f73b1d.png',
+    'pimienta'    : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/5566dc00f8b25e5b298b4568-b5daf661.png',
+    'comino'      : 'https://cdn-icons-png.flaticon.com/512/2674/2674455.png',
+    'oregano'     : 'https://cdn-icons-png.flaticon.com/512/2674/2674475.png',
+    'canela'      : 'https://cdn-icons-png.flaticon.com/512/2674/2674452.png',
+    'curry'       : 'https://cdn-icons-png.flaticon.com/512/2674/2674458.png',
+    'pimenton'    : 'https://cdn-icons-png.flaticon.com/512/2674/2674476.png',
+    'jengibre'    : 'https://cdn-icons-png.flaticon.com/512/2674/2674466.png',
     'nuez_moscada': 'https://cdn-icons-png.flaticon.com/512/2674/2674474.png',
-    'azafran': 'https://cdn-icons-png.flaticon.com/512/2674/2674449.png',
-    'cardamomo': 'https://cdn-icons-png.flaticon.com/512/2674/2674453.png',
+    'azafran'     : 'https://cdn-icons-png.flaticon.com/512/2674/2674449.png',
+    'cardamomo'   : 'https://cdn-icons-png.flaticon.com/512/2674/2674453.png',
 
     
     // Hierbas frescas
@@ -198,15 +204,16 @@ String getIngredientImage(String ingredient) {
     'avellanas': 'https://cdn-icons-png.flaticon.com/512/1652/1652096.png',
     
     // Aceites y grasas
-    'aceite_oliva': 'https://cdn-icons-png.flaticon.com/512/2674/2674438.png',
+    'aceite_oliva'  : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/5566cdf2f8b25e0d298b4568-a8c7224a.png',
     'aceite_girasol': 'https://cdn-icons-png.flaticon.com/512/2674/2674439.png',
-    'manteca': 'https://cdn-icons-png.flaticon.com/512/2674/2674447.png',
+    'manteca'       : 'https://cdn-icons-png.flaticon.com/512/2674/2674447.png',
     
     // Endulzantes
-    'azucar': 'https://cdn-icons-png.flaticon.com/512/2674/2674492.png',
-    'miel': 'https://cdn-icons-png.flaticon.com/512/2674/2674470.png',
-    'sirope': 'https://cdn-icons-png.flaticon.com/512/2674/2674489.png',
-    'stevia': 'https://cdn-icons-png.flaticon.com/512/2674/2674490.png',
+    'azucar'                : 'https://cdn-icons-png.flaticon.com/512/2674/2674492.png',
+    'miel'                  : 'https://cdn-icons-png.flaticon.com/512/2674/2674470.png',
+    'sirope'                : 'https://cdn-icons-png.flaticon.com/512/2674/2674489.png',
+    'stevia'                : 'https://cdn-icons-png.flaticon.com/512/2674/2674490.png',
+    'vestido de miel dijon' : 'https://img.hellofresh.com/w_256,q_auto,f_auto,c_limit,fl_lossy/hellofresh_s3/ingredient/5e554e45dfd6a672ce7e0864-1d8a5a6c.png',
     
     // Productos horneados
     'pan': 'https://cdn-icons-png.flaticon.com/512/1702/1702834.png',

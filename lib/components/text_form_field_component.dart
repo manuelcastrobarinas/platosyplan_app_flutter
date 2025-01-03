@@ -47,7 +47,7 @@ class TextformfieldComponent extends StatelessWidget {
       maxLines  : maxLines,
       decoration: InputDecoration(  
         suffixText: suffixText,
-        label: Text(label, style: const TextStyle(fontSize: 14.0, color: Colors.black54)),
+        label: Text(label, style: const TextStyle(fontSize: 14.0, color: Colors.black54, overflow: TextOverflow.ellipsis), maxLines: 2),
         prefixIcon: (icon != null) ? Icon(icon, color: Colors.black) : null,
         suffixIcon: (haveSuffixIcon == true) ? IconButton(
           icon: const Icon(Icons.remove_red_eye_rounded),

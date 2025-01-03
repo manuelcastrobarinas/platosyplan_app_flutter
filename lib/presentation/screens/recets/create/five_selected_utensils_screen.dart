@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../bloc/recipe/recipes_bloc.dart';
 import '../../../../components/components.dart';
+import '../../../../models/recipe.dart';
 
 class FiveSelectedUtensilsScreen extends StatefulWidget {
   const FiveSelectedUtensilsScreen({super.key});
@@ -34,7 +35,7 @@ class _FiveSelectedUtensilsScreenState extends State<FiveSelectedUtensilsScreen>
     return BlocBuilder<RecipesBloc, RecipesState>(
       buildWhen: (previous, current) => previous.createdSelectedUtensils != current.createdSelectedUtensils,
       builder: (BuildContext context, RecipesState state) {
-        List<String> selectedUtensils = state.createdSelectedUtensils;
+        List<Utensil> selectedUtensils = state.createdSelectedUtensils;
         return SizedBox(
           width: size.width,
           child: Padding(
@@ -93,7 +94,7 @@ class _FiveSelectedUtensilsScreenState extends State<FiveSelectedUtensilsScreen>
                                         return;
                                       }
                                       setState(() {
-                                        selectedUtensils = [...selectedUtensils, _utensilController.text];
+                                        selectedUtensils = [...selectedUtensils, Utensil(name: _utensilController.text)];
                                         BlocProvider.of<RecipesBloc>(context).addCreateSelectedUtensils(selectedUtensils);
                                         _utensilController.clear();
                                       });
@@ -126,11 +127,11 @@ class _FiveSelectedUtensilsScreenState extends State<FiveSelectedUtensilsScreen>
                                 padding: const EdgeInsets.symmetric(vertical: 5.0),
                                 child: ListTile(
                                   shape   : RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: Colors.grey.shade300)),
-                                  title   : Text(utensil),
+                                  title   : Text(utensil.name!),
                                   trailing: IconButton(
                                     icon:  Icon(Icons.delete, color: Theme.of(context).primaryColor),
                                     onPressed: () {
-                                      final newUtensils = List<String>.from(selectedUtensils)..removeAt(index);
+                                      final newUtensils = List<Utensil>.from(selectedUtensils)..removeAt(index);
                                       BlocProvider.of<RecipesBloc>(context).addCreateSelectedUtensils(newUtensils);
                                     },
                                   ),
@@ -167,7 +168,7 @@ class _FiveSelectedUtensilsScreenState extends State<FiveSelectedUtensilsScreen>
   }
 }
 
-bool _validateUtensilExists(List<String> selectedUtensils, String utensilName) {
-  final bool utensilExists = selectedUtensils.any((utensil) => utensil.toLowerCase() == utensilName.toLowerCase());
+bool _validateUtensilExists(List<Utensil> selectedUtensils, String utensilName) {
+  final bool utensilExists = selectedUtensils.any((utensil) => utensil.name!.toLowerCase() == utensilName.toLowerCase());
   return utensilExists;
 }

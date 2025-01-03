@@ -86,39 +86,36 @@ class Pagination {
 
 class RecipeModel {
   String id;
-  String recipeId;
   String image;
   String name;
-  String createRegion;
+  String category;
   int calification;
   int timeCreate;
   String difficulty;
   String description;
   List<Ingredient>? ingredients;
-  NutricionalTable nutricionalTable;
+  NutricionalTable? nutricionalTable;
   List<Utensil>? utensils;
   List<StepCooking>? steps;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? v;
+ 
 
   RecipeModel({
     required this.id,
-    required this.recipeId,
     required this.image,
     required this.name,
-    required this.createRegion,
+    required this.category,
     required this.calification,
     required this.timeCreate,
     required this.difficulty,
     required this.description,
     this.ingredients,
-    required this.nutricionalTable,
+    this.nutricionalTable,
     this.utensils,
     this.steps,
     this.createdAt,
     this.updatedAt,
-    this.v,
   });
 
   factory RecipeModel.fromRawJson(String str) => RecipeModel.fromJson(json.decode(str));
@@ -126,41 +123,37 @@ class RecipeModel {
   String toRawJson() => json.encode(toJson());
 
   factory RecipeModel.fromJson(Map<String, dynamic> json) => RecipeModel(
-    id: json["_id"],
-    recipeId: json["id"],
-    image: json["image"],
-    name: json["name"],
-    createRegion: json["create_region"],
-    calification: json["calification"],
-    timeCreate: json["time_create"],
-    difficulty: json["difficulty"],
-    description: json["description"],
-    ingredients: json["ingredients"] == null ? [] : List<Ingredient>.from(json["ingredients"]!.map((x) => Ingredient.fromJson(x))),
+    id              : json["id"],
+    image           : json["image"],
+    name            : json["name"],
+    category        : json["category"],
+    calification    : json["calification"],
+    timeCreate      : json["time_create"],
+    difficulty      : json["difficulty"],
+    description     : json["description"],
+    ingredients     : json["ingredients"] == null ? [] : List<Ingredient>.from(json["ingredients"]!.map((x) => Ingredient.fromJson(x))),
     nutricionalTable: NutricionalTable.fromJson(json["nutricional_table"]),
-    utensils: json["utensils"] == null ? [] : List<Utensil>.from(json["utensils"]!.map((x) => Utensil.fromJson(x))),
-    steps: json["steps"] == null ? [] : List<StepCooking>.from(json["steps"]!.map((x) => StepCooking.fromJson(x))),
-    createdAt: json["CreatedAt"] == null ? null : DateTime.parse(json["CreatedAt"]),
-    updatedAt: json["UpdatedAt"] == null ? null : DateTime.parse(json["UpdatedAt"]),
-    v: json["__v"],
+    utensils        : json["utensils"] == null ? [] : List<Utensil>.from(json["utensils"]!.map((x) => Utensil.fromJson(x))),
+    steps           : json["steps"] == null ? [] : List<StepCooking>.from(json["steps"]!.map((x) => StepCooking.fromJson(x))),
+    createdAt       : json["CreatedAt"] == null ? null : DateTime.parse(json["CreatedAt"]),
+    updatedAt       : json["UpdatedAt"] == null ? null : DateTime.parse(json["UpdatedAt"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
-    "id": recipeId,
-    "image": image,
-    "name": name,
-    "create_region": createRegion,
-    "calification": calification,
-    "time_create": timeCreate,
-    "difficulty": difficulty,
-    "description": description,
-    "ingredients": ingredients == null ? [] : List<dynamic>.from(ingredients!.map((x) => x.toJson())),
-    "nutricional_table": nutricionalTable.toJson(),
-    "utensils": utensils == null ? [] : List<dynamic>.from(utensils!.map((x) => x.toJson())),
-    "steps": steps == null ? [] : List<dynamic>.from(steps!.map((x) => x.toJson())),
-    "CreatedAt": createdAt?.toIso8601String(),
-    "UpdatedAt": updatedAt?.toIso8601String(),
-    "__v": v,
+    "id"                : id,
+    "image"             : image,
+    "name"              : name,
+    "category"          : category,
+    "calification"      : calification,
+    "time_create"       : timeCreate,
+    "difficulty"        : difficulty,
+    "description"       : description,
+    "ingredients"       : ingredients == null ? [] : List<dynamic>.from(ingredients!.map((x) => x.toJson())),
+    "nutricional_table" : nutricionalTable?.toJson(),
+    "utensils"          : utensils == null ? [] : List<dynamic>.from(utensils!.map((x) => x.toJson())),
+    "steps"             : steps == null ? [] : List<dynamic>.from(steps!.map((x) => x.toJson())),
+    "CreatedAt"         : createdAt?.toIso8601String(),
+    "UpdatedAt"         : updatedAt?.toIso8601String(),
   };
 }
 

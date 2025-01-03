@@ -126,16 +126,16 @@ class _InformationContainer extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _TitleRecipe(recipeTitle: recipe.name),
-            _CountryRecipe(countryRecipe: recipe.createRegion),
+            _CountryRecipe(countryRecipe: recipe.category),
             _StadisticsRecipe(
-              calories  : recipe.nutricionalTable.calories!.amount.toString(),
+              calories  : recipe.nutricionalTable?.calories?.amount.toString() ?? 'Sin registrar',
               difficulty: recipe.difficulty,
               score     : recipe.calification.toString(),
               time      : recipe.timeCreate.toString(),
             ),
             _DescriptionRecipe(description: recipe.description),
             _Ingredients(sectionTitleStyle: sectionTitleStyle, ingredientList: recipe.ingredients!),
-            _NutritionalTable(sectionTitleStyle: sectionTitleStyle, nutricionalTable: recipe.nutricionalTable,),
+            recipe.nutricionalTable != null ? _NutritionalTable(sectionTitleStyle: sectionTitleStyle, nutricionalTable: recipe.nutricionalTable!) : const Text("No se ha registrado la tabla nutricional"),
             _Utensils(sectionTitleStyle: sectionTitleStyle, utensilios: recipe.utensils!),
             const SizedBox(height: 10.0),
             _ButtonToReditectSteps(sectionTitleStyle: sectionTitleStyle, stepsList: recipe.steps!),
@@ -378,7 +378,14 @@ class _Ingredients extends StatelessWidget {
                     color: Colors.red[50],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                    child: Image.asset('assets/food/hamburger.png', fit: BoxFit.cover)
+                    child: FadeInImage(
+                      height: 50,
+                      width : 50,
+                      fit: BoxFit.fitWidth,
+                      placeholder: const AssetImage("assets/food/loading-food.gif"), 
+                      image : NetworkImage(ingredientList[index].image!),
+                      placeholderErrorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) => const Icon(Icons.image_not_supported, size: 30),
+                    )
                   ),
                   title   : Text(ingredientList[index].name),
                   trailing: Text(ingredientList[index].units.toString()),

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      initialRoute: 'selectimagerecipe',
+      initialRoute: 'introduction',
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:platosyplan/components/alerts/show_scaffold_message_component.dart';
 
 import '../../../../bloc/recipe/recipes_bloc.dart';
 import '../../../../components/components.dart';
@@ -105,12 +106,13 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
                                         await recipesBloc.createRecipe();
 
                                         if(!context.mounted) return;
-                                        Navigator.pushNamed(context, 'navegation');
+                                        Navigator.pushNamedAndRemoveUntil(context, 'navegation', (Route<dynamic> route) => false);
                                       } catch (e) {
                                         debugPrint('Error al crear la receta $e');
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text(e.toString()))
-                                        );
+                                        showScaffoldMessageComponent(context: context, message: e.toString());
+                                        // ScaffoldMessenger.of(context).showSnackBar(
+                                        //   SnackBar(content: Text(e.toString()))
+                                        // );
                                       } finally {
                                         recipesBloc.setIsLoadingRequest(false);
                                       }
@@ -265,17 +267,19 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
     
     // Validar que haya al menos un paso
     if (steps.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Debes agregar al menos un paso'))
-      );
+      showScaffoldMessageComponent(context: context, message: 'Debes agregar al menos un paso');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Debes agregar al menos un paso'))
+      // );
       return false;
     }
 
      for (int i = 0; i < imagesSteps.length; i++) {
       if (imagesSteps[i].path.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Falta la imagen del paso ${i + 1}'))
-        );
+        showScaffoldMessageComponent(context: context, message: 'Falta la imagen del paso ${i + 1}');
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Falta la imagen del paso ${i + 1}'))
+        // );
         return false;
       }
     }
@@ -305,9 +309,10 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
     // Verificar si hay utensilios creados que no están seleccionados en los pasos
     final unselectedUtensils = allUtensils.difference(selectedUtensils);
     if (unselectedUtensils.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Faltan utensilios por seleccionar: ${unselectedUtensils.join(", ")}'))
-      );
+      showScaffoldMessageComponent(context: context, message: 'Faltan utensilios por seleccionar: ${unselectedUtensils.join(", ")}');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Faltan utensilios por seleccionar: ${unselectedUtensils.join(", ")}'))
+      // );
       return false;
     }
 
@@ -331,9 +336,10 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
       .toList();
 
     if (unselectedIngredients.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Faltan ingredientes por seleccionar: ${unselectedIngredients.join(", ")}'))
-      );
+      showScaffoldMessageComponent(context: context, message: 'Faltan ingredientes por seleccionar: ${unselectedIngredients.join(", ")}');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Faltan ingredientes por seleccionar: ${unselectedIngredients.join(", ")}'))
+      // );
       return false;
     }
 

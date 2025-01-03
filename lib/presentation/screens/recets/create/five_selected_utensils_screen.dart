@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:platosyplan/components/alerts/show_scaffold_message_component.dart';
 import '../../../../bloc/recipe/recipes_bloc.dart';
 import '../../../../components/components.dart';
 import '../../../../models/recipe.dart';
@@ -90,7 +91,8 @@ class _FiveSelectedUtensilsScreenState extends State<FiveSelectedUtensilsScreen>
                                       final bool utensilExist = _validateUtensilExists(selectedUtensils, _utensilController.text);
                                       
                                       if (utensilExist) {
-                                        ScaffoldMessenger.of(context).showSnackBar(  SnackBar(content: const Text('Este utensilio ya fue agregado'), backgroundColor: Theme.of(context).secondaryHeaderColor,));
+                                        showScaffoldMessageComponent(context: context, message: 'Este utensilio ya fue agregado');
+                                        // ScaffoldMessenger.of(context).showSnackBar(  SnackBar(content: const Text('Este utensilio ya fue agregado'), backgroundColor: Theme.of(context).secondaryHeaderColor));
                                         return;
                                       }
                                       setState(() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:platosyplan/components/alerts/show_scaffold_message_component.dart';
 import '../../../../bloc/recipe/recipes_bloc.dart';
 import '../../../../components/components.dart';
 
@@ -150,7 +151,8 @@ class NameAndDescriptionScreen extends StatelessWidget {
     }
     
     if (category == null || category.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Debes seleccionar una categoría')));
+      showScaffoldMessageComponent(context: context, message: 'Debes seleccionar una categoría');
+      // ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Debes seleccionar una categoría')));
       return false;
     }
 

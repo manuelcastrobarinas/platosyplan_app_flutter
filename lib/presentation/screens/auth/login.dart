@@ -124,7 +124,7 @@ class _LoginForm extends StatelessWidget {
                       );
                       if(!context.mounted) return;
                         authBloc.setIsLoadingRequest(isLoadingRequest: false);
-                        Navigator.popAndPushNamed(context, 'navegation');
+                        Navigator.pushNamedAndRemoveUntil(context, 'navegation', (Route<dynamic> route) => false);
                         return;
                     } catch (e) {
                       if (context.mounted) {

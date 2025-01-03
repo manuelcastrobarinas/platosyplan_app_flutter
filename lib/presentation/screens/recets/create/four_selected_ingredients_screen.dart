@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:platosyplan/components/alerts/show_scaffold_message_component.dart';
 import 'package:platosyplan/models/recipe.dart';
 
 import '../../../../bloc/recipe/recipes_bloc.dart';
@@ -139,7 +140,8 @@ class _FourSelectedIngredientsScreenState extends State<FourSelectedIngredientsS
                                         final bool ingredientExists = _validateIngredientExists(selectedIngredients, _ingredientController.text);
                                        
                                         if (ingredientExists) {
-                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar( content: const Text('Este ingrediente ya fue agregado'),backgroundColor: Theme.of(context).secondaryHeaderColor));
+                                          showScaffoldMessageComponent(context: context, message: 'Este ingrediente ya fue agregado');
+                                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar( content: const Text('Este ingrediente ya fue agregado'),backgroundColor: Theme.of(context).secondaryHeaderColor));
                                           return;
                                         }
 

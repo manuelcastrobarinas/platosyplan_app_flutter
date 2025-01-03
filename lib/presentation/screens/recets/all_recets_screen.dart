@@ -16,12 +16,9 @@ class AllRecetsScreen extends StatelessWidget {
     return SingleChildScrollView(
       controller : controller,
       child: ConstrainedBox(
-        constraints:  BoxConstraints(
-          minHeight: size.height,
-        ),
+        constraints:  BoxConstraints(minHeight: size.height),
         child: BlocBuilder<RecipesBloc, RecipesState>(
           builder: (context, state) {
-            if(state is RecipesInitial) {
               return (state.allRecipes!.isEmpty) ? const Center(child: Text("no hay recetas creadas"))
                : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,15 +39,13 @@ class AllRecetsScreen extends StatelessWidget {
                         padding : const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                         child : GestureDetector(
                           onTap: () => Navigator.pushNamed(context, 'recipe', arguments: recipe),
-                          child: _RecipesCards(recipe: recipe, sectionTitleStyle: sectionTitleStyle, size: size),
+                          child: _RecipesCards(recipe: recipe, sectionTitleStyle: sectionTitleStyle),
                         ),
                       );
                     }
                   )
                 ],
               );
-            }
-            return const Text('No data');
           },
         ),
       ),
@@ -62,12 +57,10 @@ class _RecipesCards extends StatelessWidget {
   const _RecipesCards({
     required this.recipe,
     required this.sectionTitleStyle,
-    required this.size,
   });
 
   final RecipeModel recipe;
   final TextStyle sectionTitleStyle;
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
@@ -83,23 +76,23 @@ class _RecipesCards extends StatelessWidget {
           child   : SizedBox(
             height: double.infinity,
             width : double.infinity,
-            child: Column(
+            child : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 1,
-                  child: _ImageTitleAndDescriptionRecipeCard(recipe: recipe, sectionTitleStyle: sectionTitleStyle)
+                  flex  : 1,
+                  child : _ImageTitleAndDescriptionRecipeCard(recipe: recipe, sectionTitleStyle: sectionTitleStyle)
                 ),
                 Expanded(
-                  flex: 4,
-                  child: Container(
-                    width: double.infinity,
+                  flex  : 4,
+                  child : Container(
+                    width : double.infinity,
                     height: double.infinity,
                     decoration : const BoxDecoration(
                       color : Color(0xfff6f7fc),
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15.0),
+                        topLeft : Radius.circular(15.0),
                         topRight: Radius.circular(15.0),
                       ),
                     ),    
@@ -111,7 +104,9 @@ class _RecipesCards extends StatelessWidget {
                             child: FadeInImage(
                               fit: BoxFit.fitWidth,
                               placeholder: const AssetImage("assets/food/loading-food.gif"), 
-                              image: NetworkImage(recipe.image)
+                              image: NetworkImage(recipe.image),
+                              height: double.infinity,
+                              width : double.infinity,
                             )
                           ),
                         ),
@@ -119,23 +114,15 @@ class _RecipesCards extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  padding : const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                  height  : 50,
-                  width   : double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color(0xfff6f7fc),
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15.0))
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _StadisticsRecipe(recipe: recipe)
-                      ]
+                Flexible(
+                  flex  : 1,
+                  child : Container(
+                    height : 50,
+                    decoration: const BoxDecoration(
+                      // color: Colors.red,
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15.0))
                     ),
+                    child: Center(child: _StadisticsRecipe(recipe: recipe)),
                   ),
                 ),
               ],
@@ -252,34 +239,58 @@ class _StadisticsRecipe extends StatelessWidget {
     required this.recipe
   });
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+      crossAxisAlignment: CrossAxisAlignment.start, // Ajuste vertical más centrado
+      mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribuye el espacio uniformemente
+      children: [
+        Expanded(
+          child: Row(
             children: [
               Icon(Icons.food_bank_outlined, color: Colors.red[700]),
-              const SizedBox(width: 10.0),
-              Text(recipe.createRegion, style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+              const SizedBox(width: 5.0), // Reduce el espacio
+              Expanded( // Permite que el texto ocupe el espacio restante
+                child: Text(
+                  recipe.category,
+                  style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
+                  maxLines: 1,
+                ),
+              ),
             ],
           ),
-          Row(
+        ),
+        Expanded(
+          child: Row(
             children: [
               Icon(Icons.access_time_sharp, color: Theme.of(context).primaryColor),
-              const SizedBox(width: 10.0),
-              Text('${recipe.timeCreate} minutos', style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+              const SizedBox(width: 5.0),
+              Expanded(
+                child: Text(
+                  '${recipe.timeCreate} minutos',
+                  style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
+                  maxLines: 1,
+                ),
+              ),
             ],
           ),
-          Row(
+        ),
+        Expanded(
+          child: Row(
             children: [
               Icon(Icons.food_bank, color: Theme.of(context).primaryColor),
-              const SizedBox(width: 10.0),
-              Text(recipe.difficulty, style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis), maxLines: 1)
+              const SizedBox(width: 5.0),
+              Expanded(
+                child: Text(
+                  recipe.difficulty,
+                  style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
+                  maxLines: 1,
+                ),
+              ),
             ],
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 }

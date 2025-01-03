@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:platosyplan/components/slidershow_component.dart';
+import 'package:platosyplan/components/progress/slidershow_component.dart';
 import 'package:platosyplan/models/recipe.dart';
 
 import '../../bloc/steps/steps_bloc.dart';
@@ -170,10 +170,17 @@ class _Ingredients extends StatelessWidget {
                     color: Colors.red[50],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                    child: Image.asset('assets/food/hamburger.png', fit: BoxFit.cover)
+                    child: FadeInImage(
+                      height: 50,
+                      width : 50,
+                      fit: BoxFit.fitWidth,
+                      placeholder: const AssetImage("assets/food/loading-food.gif"), 
+                      image : NetworkImage(ingredientsSteps[index].image!),
+                      placeholderErrorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) => const Icon(Icons.image_not_supported, size: 30),
+                    )
                   ),
                   title   : Text(ingredientsSteps[index].name),
-                  trailing: Text('${ingredientsSteps[index].units} unidades'),
+                  trailing: Text('${ingredientsSteps[index].units} unidades', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                 ),
               );
             },

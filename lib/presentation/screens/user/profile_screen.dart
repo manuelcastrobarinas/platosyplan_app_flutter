@@ -67,9 +67,9 @@ class ProfileScreen extends StatelessWidget {
                       onPress: () {}
                     ),
                     ProfileMenuWidget(
-                      title: "User Management",
-                      icon: Icons.person_2_sharp,
-                      onPress: () {}
+                      title: "Mis Recetas",
+                      icon: Icons.restaurant_menu_outlined,
+                      onPress: () => Navigator.pushNamed(context, 'myrecipes')
                     ),
                     const Divider(color: Colors.black12),
                     const SizedBox(height: 10),

@@ -6,7 +6,7 @@ import 'package:platosyplan/services/interfaces/auth_interface.dart';
 
 import '../../errors/api_errors.dart';
 
-class AuthService  implements AuthRules {
+class AuthService  implements AuthContract {
 
   final Dio _dio = Dio()
   ..options.connectTimeout = const Duration(seconds: 5)
@@ -15,8 +15,6 @@ class AuthService  implements AuthRules {
 
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
   final String _backendUrl = dotenv.get('BACKEND_URL');
-  
-  bool isAuth = false;
   
   @override
   Future<UserModel> register({required String name, required String email, required String password, required String phone}) async { 

@@ -42,24 +42,6 @@ class _CreateAccount extends StatelessWidget {
         const Text("¿No tienes una cuenta?", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
         TextButton(
           onPressed: () => Navigator.pushNamed(context, 'register'),
-          // onPressed: () => Navigator.pushReplacement(
-          // context,
-          //   PageRouteBuilder(
-          //     pageBuilder: (context, animation, secondaryAnimation) => const RegisterView(),
-          //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          //       const Offset begin = Offset(-1.0, 0.0);
-          //       const Offset end = Offset.zero;
-          //       const curve = Curves.easeInOutQuart;
-          //       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-          //       var offsetAnimation = animation.drive(tween);
-          //       return SlideTransition(
-          //         position: offsetAnimation,
-          //         child: child,
-          //       );
-          //     },
-          //     transitionDuration: const Duration(seconds: 2), // Duración personalizada
-          //   ),
-          // ),
           child: Text("Registrate", style: TextStyle(color: Colors.pink[600], fontSize: 17)),
         )
       ],
@@ -142,7 +124,7 @@ class _LoginForm extends StatelessWidget {
                       );
                       if(!context.mounted) return;
                         authBloc.setIsLoadingRequest(isLoadingRequest: false);
-                        Navigator.popAndPushNamed(context, 'navegation');
+                        Navigator.pushNamedAndRemoveUntil(context, 'navegation', (Route<dynamic> route) => false);
                         return;
                     } catch (e) {
                       if (context.mounted) {
@@ -177,34 +159,26 @@ class _LogoAndTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width : MediaQuery.of(context).size.width* 0.62,
+      width : MediaQuery.of(context).size.width* 0.79,
       child : Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Expanded(
-            flex: 3,
-            child: SizedBox(),
-          ),
-          Expanded(
-            flex  : 4,
-            child : Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.10,
-                  child : Image.asset("assets/logo.png")
-                ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.56,
-                child: Image.asset("assets/platosyplanfondo.png")
-              ),
-              ],
-            ),
-          ),
-          const Expanded(
             flex  : 2,
-            child : Text("PREPARA TUS RECETAS", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white))
-          )
+            child: SizedBox()
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.10,
+                child : Image.asset("assets/logo.png")
+              ),
+            Image.asset("assets/platosyplanfondo.png",fit: BoxFit.cover),
+            ],
+          ),
+          const Text("PREPARA TUS RECETAS", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+          const Expanded(child: SizedBox()),
         ]
       ),
     );

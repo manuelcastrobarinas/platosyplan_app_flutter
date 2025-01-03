@@ -14,13 +14,14 @@ class AllRecetsScreen extends StatelessWidget {
     const TextStyle sectionTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 16, overflow: TextOverflow.ellipsis);
     final Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-      controller : controller,
+      controller : ScrollController(),
       child: ConstrainedBox(
         constraints:  BoxConstraints(minHeight: size.height),
         child: BlocBuilder<RecipesBloc, RecipesState>(
           builder: (context, state) {
-              return (state.allRecipes!.isEmpty) ? const Center(child: Text("no hay recetas creadas"))
-               : Column(
+            return (state.allRecipes!.isEmpty) ? const Center(child: Text("no hay recetas creadas"))
+              : SafeArea(
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _Header(size: size, titleStyle: titleStyle),
@@ -37,15 +38,16 @@ class AllRecetsScreen extends StatelessWidget {
                       final RecipeModel recipe = state.allRecipes![i];
                       return Padding(
                         padding : const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                        child : GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, 'recipe', arguments: recipe),
-                          child: _RecipesCards(recipe: recipe, sectionTitleStyle: sectionTitleStyle),
+                        child   : GestureDetector(
+                          onTap : () => Navigator.pushNamed(context, 'recipe', arguments: recipe),
+                          child : _RecipesCards(recipe: recipe, sectionTitleStyle: sectionTitleStyle),
                         ),
                       );
                     }
                   )
                 ],
-              );
+              ),
+            );
           },
         ),
       ),
@@ -191,40 +193,38 @@ class _Header extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       width : double.infinity,
-      height: size.height * 0.15,
-      child : SafeArea(
-        child : Align(
-          alignment: Alignment.centerLeft,
-          child : Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment :  MainAxisAlignment.spaceBetween,
-            children: [
-               Builder(
-                builder: (context) => GestureDetector(
-                  onTap: () => Scaffold.of(context).openDrawer(),
-                  child: const Icon(Icons.list, size: 28),
+      height: size.height * 0.1,
+      child : Align(
+        alignment: Alignment.centerLeft,
+        child : Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment :  MainAxisAlignment.spaceBetween,
+          children: [
+            Builder(
+              builder: (context) => GestureDetector(
+                onTap: () => Scaffold.of(context).openDrawer(),
+                child: const Icon(Icons.list, size: 28),
+              ),
+            ),
+            Container(
+              width   : size.width  * 0.60,
+              padding : const EdgeInsets.symmetric(horizontal: 14.0),
+              child   : Image.asset('assets/platosyplanfondoNaranja.png', fit: BoxFit.fitWidth)
+            ),
+            SizedBox(
+              height: 35,
+              width : 35,
+              child : ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child : const FadeInImage( //TODO: REMPLAZAR CON EL USER_IMAGE
+                  placeholder:  AssetImage('assets/food/loading-food.gif'), 
+                  image : AssetImage('assets/food/hamburgerBanner.jpg'),
+                  fit   : BoxFit.cover,
                 ),
               ),
-              Container(
-                padding : const EdgeInsets.symmetric(horizontal: 14.0),
-                height  : size.height * 0.032,
-                child   : Image.asset('assets/platosyplanfondoNaranja.png')
-              ),
-              SizedBox(
-                height: 35,
-                width : 35,
-                child : ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child : const FadeInImage( //TODO: REMPLAZAR CON EL USER_IMAGE
-                    placeholder:  AssetImage('assets/food/loading-food.gif'), 
-                    image : AssetImage('assets/food/hamburgerBanner.jpg'),
-                    fit   : BoxFit.cover,
-                  ),
-                ),
-              )
-            ],
-          )
-        ),
+            )
+          ],
+        )
       )
     );
   }

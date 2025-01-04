@@ -41,6 +41,27 @@ class RecipeServices implements RecipeContract {
       throw CustomApiErrors.fromError(e);
     }
   }
+  
+  @override
+  Future<RecipeResponse> getMyRecipes() async {
+    try {
+      final String url = '$_url/recipes/myrecipes';
+      final Response<dynamic> response = await _dio.get(url);
+      final RecipeResponse recipeResponse = RecipeResponse.fromJson(response.data);
+      return recipeResponse;
+    } catch (e) {
+      throw CustomApiErrors.fromError(e);
+    }
+  }
 
+  @override
+  Future<void> changeActiveRecipe({required bool isActive, required String recipeId}) async {
+    try {
+      final String url = '$_url/recipes/active';
+      await _dio.patch(url, data: {'active': isActive, 'recipe_id': recipeId}); 
+    } catch (e) {
+      throw CustomApiErrors.fromError(e);
+    }
+  }
 
 }

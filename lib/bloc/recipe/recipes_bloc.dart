@@ -15,6 +15,7 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     //SET STATE TO GET ALL RECIPES
     on<OnGetAllRecipesEvent>                  ((event, emit) => emit((state).copyWith(allRecipes: event.newListRecipe)));
     on<OnCreateRecipeEvent>                   ((event, emit) => emit(state.copyWith()));
+    on<OnGetMyRecipesEvent>                   ((event, emit) => emit(state.copyWith(myRecipes: event.myRecipes)));
     
     //SET STATE TO CREATE RECIPE
     on<OnSetCreateSelectedIngredientsEvent>     ((event, emit) => emit((state).copyWith(createdSelectedIngredients: event.createdSelectedIngredients)));
@@ -30,12 +31,20 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     on<OnSetCreateStepsRecipeEvent>             ((event, emit) => emit((state).copyWith(createdStepsRecipe: event.createdStepsRecipe)));
     
     //SET STATE TO LOADING REQUEST
+    on<OnChangeActiveRecipeEvent>               ((event, emit) => emit(state.copyWith()));
+
+    //SET STATE TO LOADING REQUEST
     on<OnSetIsLoadingRequestEvent>              ((event, emit) => emit((state).copyWith(isLoadingRequest: event.isLoadingRequest)));
   }
 
   Future<void> getAllRecipes() async {
     final RecipeResponse response = await recipeService.getAllRecipes();
     add(OnGetAllRecipesEvent(newListRecipe: response.data!.recipes!));
+  }
+
+  Future<void> getMyRecipes() async {
+    final RecipeResponse response = await recipeService.getMyRecipes();
+    add(OnGetMyRecipesEvent(myRecipes: response.data!.recipes!));
   }
 
   Future<void> createRecipe() async {
@@ -47,6 +56,7 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
       difficulty  : state.difficultyRecipe!,
       timeCreate  : state.timeCreateRecipe!.toInt(),
       description : state.descriptionRecipe!,
+      active      : true,
       ingredients : state.createdSelectedIngredients,
       utensils    : state.createdSelectedUtensils,
       steps       : state.createdStepsRecipe,
@@ -77,6 +87,19 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
   //SET EVENTS TO LOADING REQUEST
   void setIsLoadingRequest(bool isLoadingRequest) => add(OnSetIsLoadingRequestEvent(isLoadingRequest: isLoadingRequest));
 
-}
+  //CHAGE RECIPE ACTIVATE
+  Future<void> changeActiveRecipe({required bool isActive, required String recipeId}) async {
+    await recipeService.changeActiveRecipe(isActive: isActive, recipeId: recipeId);
 
-//TODO: HACER QUE LA CREACION DE LA RECETA ELIMINE LA NAVEGACION Y NO ME DEJE RETROCEDER
+    // CREATE COPY TO THE RECIPES
+    final updatedRecipes = List<RecipeModel>.from(state.myRecipes!);
+    
+    //SEARCH ID IN THE RECIPES CREATED
+    final int index = updatedRecipes.indexWhere((RecipeModel recipe) => recipe.id == recipeId);
+    //UPDATED RECIPE ACTIVATE, AND NOTIFIY TO THE STATE
+    if (index != -1) {
+      updatedRecipes[index].active = isActive; 
+      add(OnChangeActiveRecipeEvent(myRecipesUpdated: updatedRecipes)); 
+    }
+  }
+}

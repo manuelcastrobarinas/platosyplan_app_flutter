@@ -93,6 +93,7 @@ class RecipeModel {
   int timeCreate;
   String difficulty;
   String description;
+  bool   active;
   List<Ingredient>? ingredients;
   NutricionalTable? nutricionalTable;
   List<Utensil>? utensils;
@@ -110,6 +111,7 @@ class RecipeModel {
     required this.timeCreate,
     required this.difficulty,
     required this.description,
+    required this.active,
     this.ingredients,
     this.nutricionalTable,
     this.utensils,
@@ -131,6 +133,7 @@ class RecipeModel {
     timeCreate      : json["time_create"],
     difficulty      : json["difficulty"],
     description     : json["description"],
+    active          : json["active"],
     ingredients     : json["ingredients"] == null ? [] : List<Ingredient>.from(json["ingredients"]!.map((x) => Ingredient.fromJson(x))),
     nutricionalTable: NutricionalTable.fromJson(json["nutricional_table"]),
     utensils        : json["utensils"] == null ? [] : List<Utensil>.from(json["utensils"]!.map((x) => Utensil.fromJson(x))),
@@ -148,6 +151,7 @@ class RecipeModel {
     "time_create"       : timeCreate,
     "difficulty"        : difficulty,
     "description"       : description,
+    "active"            : active,
     "ingredients"       : ingredients == null ? [] : List<dynamic>.from(ingredients!.map((x) => x.toJson())),
     "nutricional_table" : nutricionalTable?.toJson(),
     "utensils"          : utensils == null ? [] : List<dynamic>.from(utensils!.map((x) => x.toJson())),

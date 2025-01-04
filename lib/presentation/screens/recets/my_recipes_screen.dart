@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:platosyplan/bloc/recipe/recipes_bloc.dart';
 import 'package:platosyplan/components/components.dart';
+import 'package:platosyplan/models/recipe.dart';
+
+import '../../../components/alerts/show_alert_for_request_component.dart';
+import '../../../components/alerts/show_scaffold_message_component.dart';
 
 class MyRecipesScreen extends StatelessWidget {
   const MyRecipesScreen({super.key});
@@ -16,33 +22,38 @@ class MyRecipesScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child  : SizedBox(
             width : double.infinity,
-            child : Column(
-              mainAxisAlignment : MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 30),
-                ButtonComponent(
-                  minWidth: size.width * 0.85, 
-                  minHeight: 50, 
-                  function: () => Navigator.pushNamed(context, 'nameanddescription'), 
-                  text: 'Crear Receta', 
-                  isLoading: false
-                ),
-                const SizedBox(height: 30),
-                const Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('recetas', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text('5 creadas', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                    ],
-                  ),
-                ),
-                _ListOfRecipesCreated(scrollController: scrollController),
-                const SizedBox(height: 30),
-              ]
+            child : BlocBuilder<RecipesBloc, RecipesState>(
+              builder : (BuildContext context, RecipesState state) {
+                final List<RecipeModel> myRecipes = state.myRecipes!;
+                return Column(
+                  mainAxisAlignment : MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 30),
+                    ButtonComponent(
+                      minWidth  : size.width * 0.85, 
+                      minHeight : 50, 
+                      function  : () => Navigator.pushNamed<Object?>(context, 'nameanddescription'), 
+                      text      : 'Crear Receta', 
+                      isLoading : false
+                    ),
+                    const SizedBox(height: 30),
+                    Padding(
+                      padding :  const EdgeInsets.symmetric(horizontal: 15.0),
+                      child   : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text('recetas', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          Text('${myRecipes.length} creadas', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                        ],
+                      ),
+                    ),
+                    _ListOfRecipesCreated(scrollController: scrollController, myRecipes: myRecipes),
+                    const SizedBox(height: 30),
+                  ]
+                );
+              },
             ),
           ),
         ),
@@ -52,7 +63,12 @@ class MyRecipesScreen extends StatelessWidget {
 }
 
 class _ListOfRecipesCreated extends StatelessWidget {
-  const _ListOfRecipesCreated({required this.scrollController});
+  final List<RecipeModel> myRecipes;
+
+  const _ListOfRecipesCreated({
+    required this.scrollController,
+    required this.myRecipes
+  });
 
   final ScrollController scrollController;
 
@@ -61,30 +77,71 @@ class _ListOfRecipesCreated extends StatelessWidget {
     return ListView.separated(
       controller  : scrollController,
       shrinkWrap  : true,
-      itemCount   : 15,
+      itemCount   : myRecipes.length,
       separatorBuilder: (context, index) => const Divider(height: 10, color: Colors.black12),
       itemBuilder : (context, index) =>  ListTile(
         dense   : true,
-        title   : const Text('Hamburguesa', style: TextStyle(fontSize: 16, overflow: TextOverflow.ellipsis), maxLines: 1),
-        subtitle: const Text('Hamburguesa', style: TextStyle(fontSize: 14, overflow: TextOverflow.ellipsis), maxLines: 1),
-        leading : const SizedBox(
+        title   : Text(myRecipes[index].name, style: const TextStyle(fontSize: 16, overflow: TextOverflow.ellipsis), maxLines: 1),
+        subtitle: Text(myRecipes[index].description , style: const TextStyle(fontSize: 14, overflow: TextOverflow.ellipsis), maxLines: 1),
+        leading : SizedBox(
           height  : 45,
           width   : 45,
           child   : FadeInImage(
             fit     : BoxFit.cover,
-            placeholder:  AssetImage("assets/food/loading-food.gif"), 
-            image:  AssetImage("assets/food/hamburgerBanner.jpg")
+            placeholder:  const AssetImage("assets/food/loading-food.gif"), 
+            image:  NetworkImage(myRecipes[index].image),
+            imageErrorBuilder: (context, error, stackTrace) => const Icon(Icons.image_not_supported, size: 30),
           ),
         ),
-        trailing: Switch(
-          activeTrackColor: Theme.of(context).primaryColor,
-          activeColor: Theme.of(context).primaryColorLight,
-          inactiveTrackColor: Theme.of(context).primaryColorLight,
-          inactiveThumbColor: Theme.of(context).primaryColor,
-          value: true, 
-          onChanged: (value) {} //TODO: Cambiar el estado de la receta
+        trailing : Switch(
+          activeTrackColor    : Theme.of(context).primaryColor,
+          activeColor         : Theme.of(context).primaryColorLight,
+          inactiveTrackColor  : Theme.of(context).primaryColorLight,
+          inactiveThumbColor  : Theme.of(context).primaryColor,
+          value               : myRecipes[index].active, 
+          onChanged: (bool isActiveRecipe) async {
+            showDialog(
+              context: context, 
+              builder: (_) => ShowAlertForRequestComponent(
+                informationAlert: 'estas apunto de ${isActiveRecipe  ? 'activar' : 'desactivar'} esta receta. ¿Estas segur@ que deseas desactivar esta receta?',
+                title           : '${isActiveRecipe  ? 'activar' : 'desactivar'} Receta',
+                cancelText      : isActiveRecipe  ? 'No activar' : 'No desactivar',                  
+                buttonAccept    : TextButton(
+                  onPressed : () async {
+                    Navigator.of(context).pop();
+                    try {                   
+                      _showDialogToUpdate(context: context);
+                      await BlocProvider.of<RecipesBloc>(context).changeActiveRecipe(isActive: isActiveRecipe, recipeId: myRecipes[index].id);
+                      if(!context.mounted) return;         
+                      Navigator.of(context).pop();
+                    } catch (e) {
+                      Navigator.of(context).pop();
+                      showScaffoldMessageComponent(context: context, message: e.toString());
+                    }
+                  }, 
+                  child : const Text('Si estoy segur@')
+                ),
+              ),
+            );
+          } 
         ),
       ),
     );
   }
+}
+
+_showDialogToUpdate({required BuildContext context}) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(width: 20),
+          Text("Actualizando..."),
+        ],
+      ),
+    ),
+  );
 }

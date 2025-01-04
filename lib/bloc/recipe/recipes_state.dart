@@ -4,7 +4,7 @@ part of 'recipes_bloc.dart';
 final class RecipesState {
   //GET ALL RECIPES
   final List<RecipeModel>? allRecipes;
-
+  final List<RecipeModel>? myRecipes;
   //CREATE RECIPE
   final String? nameRecipe;
   final String? categoryRecipe;
@@ -23,6 +23,7 @@ final class RecipesState {
 
   RecipesState({
     this.allRecipes = const [],
+    this.myRecipes  = const [],
     this.nameRecipe,
     this.recipeImage,
     this.descriptionRecipe,
@@ -39,6 +40,7 @@ final class RecipesState {
 
   RecipesState copyWith({
     List<RecipeModel>? allRecipes,
+    List<RecipeModel>? myRecipes,
     String? nameRecipe,
     String? descriptionRecipe,
     String? categoryRecipe,
@@ -52,8 +54,9 @@ final class RecipesState {
     File? recipeImage,
     bool? isLoadingRequest,
   }) => RecipesState(
-    allRecipes: allRecipes ?? this.allRecipes,
-    nameRecipe: nameRecipe ?? this.nameRecipe,
+    allRecipes: allRecipes  ?? this.allRecipes,
+    myRecipes : myRecipes   ?? this.myRecipes,
+    nameRecipe: nameRecipe  ?? this.nameRecipe,
     descriptionRecipe: descriptionRecipe ?? this.descriptionRecipe,
     categoryRecipe: categoryRecipe ?? this.categoryRecipe,
     difficultyRecipe: difficultyRecipe ?? this.difficultyRecipe,

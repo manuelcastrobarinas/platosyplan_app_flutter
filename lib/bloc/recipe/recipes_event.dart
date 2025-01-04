@@ -68,5 +68,16 @@ class OnSetIsLoadingRequestEvent extends RecipesEvent{
   OnSetIsLoadingRequestEvent({required this.isLoadingRequest});
 }
 
+class OnGetMyRecipesEvent extends RecipesEvent {
+  final List<RecipeModel> myRecipes;
+
+  OnGetMyRecipesEvent({required this.myRecipes});
+}
+
 class OnCreateRecipeEvent extends RecipesEvent{}
 
+class OnChangeActiveRecipeEvent extends RecipesEvent {
+  final List<RecipeModel> myRecipesUpdated;
+  
+  OnChangeActiveRecipeEvent({required this.myRecipesUpdated});
+}

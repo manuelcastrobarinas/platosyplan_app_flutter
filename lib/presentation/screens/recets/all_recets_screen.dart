@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:platosyplan/models/recipe.dart';
 
 import '../../../bloc/recipe/recipes_bloc.dart';
+import '../../../components/components.dart';
 
 class AllRecetsScreen extends StatelessWidget {
   const AllRecetsScreen({super.key});
@@ -24,7 +25,7 @@ class AllRecetsScreen extends StatelessWidget {
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _Header(size: size, titleStyle: titleStyle),
+                  HeaderComponent(size: size, titleStyle: titleStyle),
                   const Padding(
                     padding: EdgeInsets.only(top: 20.0, left: 22.0),
                     child: Text("Todos los platos disponibles", style: titleStyle),
@@ -178,59 +179,6 @@ class _ImageTitleAndDescriptionRecipeCard extends StatelessWidget {
     );
   }
 }
-
-class _Header extends StatelessWidget {
-  const _Header({
-    required this.size,
-    required this.titleStyle,
-  });
-
-  final Size size;
-  final TextStyle titleStyle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      width : double.infinity,
-      height: size.height * 0.1,
-      child : Align(
-        alignment: Alignment.centerLeft,
-        child : Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment :  MainAxisAlignment.spaceBetween,
-          children: [
-            Builder(
-              builder: (context) => GestureDetector(
-                onTap: () => Scaffold.of(context).openDrawer(),
-                child: const Icon(Icons.list, size: 28),
-              ),
-            ),
-            Container(
-              width   : size.width  * 0.60,
-              padding : const EdgeInsets.symmetric(horizontal: 14.0),
-              child   : Image.asset('assets/platosyplanfondoNaranja.png', fit: BoxFit.fitWidth)
-            ),
-            SizedBox(
-              height: 35,
-              width : 35,
-              child : ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child : const FadeInImage( //TODO: REMPLAZAR CON EL USER_IMAGE
-                  placeholder:  AssetImage('assets/food/loading-food.gif'), 
-                  image : AssetImage('assets/food/hamburgerBanner.jpg'),
-                  fit   : BoxFit.cover,
-                ),
-              ),
-            )
-          ],
-        )
-      )
-    );
-  }
-}
-
-
 
 class _StadisticsRecipe extends StatelessWidget {
   final RecipeModel recipe;

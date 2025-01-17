@@ -1,3 +1,4 @@
+export 'package:platosyplan/presentation/views/plan/create/one_select_plan_view.dart';
 export 'package:platosyplan/presentation/views/user/update_profile_view.dart';
 export 'package:platosyplan/presentation/views/user/profile_view.dart';
 export 'package:platosyplan/presentation/views/auth/register.dart';

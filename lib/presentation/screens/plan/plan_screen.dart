@@ -46,7 +46,7 @@ class _UncreatedPlan extends StatelessWidget {
               minHeight : 50, 
               minWidth  : size.width * 0.8, 
               isLoading : false,
-              function  : () {}  //TODO: REDIRIGE A LA CREACION DEL PLAN
+              function  : () => Navigator.pushNamed(context, 'selectplan')
             ),
           )
         ]

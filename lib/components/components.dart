@@ -1,3 +1,4 @@
+export 'package:platosyplan/components/select/select_amount_card.dart';
 export 'package:platosyplan/components/ui/header_component.dart';
 export 'package:platosyplan/components/navegation/drawer_component.dart';
 export 'package:platosyplan/components/profile/profile_menu.dart';

@@ -1,5 +1,5 @@
+export 'package:platosyplan/presentation/screens/plan/create/one_select_plan_screen.dart';
 export 'package:platosyplan/presentation/screens/plan/plan_screen.dart';
-
 export 'package:platosyplan/presentation/screens/user/update_profile_screen.dart';
 export 'package:platosyplan/presentation/screens/user/profile_screen.dart';
 export 'package:platosyplan/presentation/screens/auth/register.dart';

@@ -5,8 +5,8 @@ import 'package:platosyplan/constants.dart';
 
 import '../../../../components/components.dart';
 
-class SelectedPlanScreen extends StatelessWidget {
-  const SelectedPlanScreen({super.key});
+class SelectedMeelsWeekPlanScreen extends StatelessWidget {
+  const SelectedMeelsWeekPlanScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class SelectedPlanScreen extends StatelessWidget {
               minHeight : 50, 
               minWidth  : size.width * 0.8, 
               isLoading : false,
-              function  : () => Navigator.pushNamed(context, 'selectmeels')
+              function  : () => Navigator.pushNamed(context, 'selectplan')
             ),
             const SizedBox()
           ],
@@ -74,7 +74,7 @@ class _Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<int> buildCardIndex = <int> [2, 3, 4, 6];
+    final List<int> buildCardIndex = <int> [2, 3, 4, 5, 6];
 
     return SizedBox(
       height: size.height * 0.7,
@@ -82,7 +82,7 @@ class _Content extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start, 
         mainAxisAlignment : MainAxisAlignment.start,
         children: <Widget> [
-          const Text("¿Cuántas personas habrá en la mesa? 🧑", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400)),
+          const Text("¿cuantas comidas te gusta por semana? 🍜", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400)),
           const Expanded(child: SizedBox()),
           BlocBuilder<PlanBloc, PlanState>(
             builder: (BuildContext context, PlanState state) {
@@ -93,14 +93,14 @@ class _Content extends StatelessWidget {
                     children  : buildCardIndex.map((index) {
                       return SelectAmountCardComponent(
                         value : index,
-                        stateIntValue: state.peopleActive,
-                        function : () => BlocProvider.of<PlanBloc>(context).changePeopleNumberPlan(newPeopleNumber: index),
+                        stateIntValue: state.meelsPerWeek,
+                        function : () => BlocProvider.of<PlanBloc>(context).changeMeelsPerWeekPlan(newMeelsPerWeek: index),
                       );
                     }).toList()
                   ),
                   Padding(
                     padding : const EdgeInsets.only(top: 20.0),
-                    child   : _buildText(state.peopleActive),
+                    child   : _buildText(state.meelsPerWeek),
                   ),
                 ],
               );
@@ -115,11 +115,12 @@ class _Content extends StatelessWidget {
   Widget _buildText(int peopleActive) {
     const TextStyle textStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.w400);
     switch (peopleActive) {
-      case 2  : return const Text("para parejas o para una persona a quien le gusta preparar comidas", style: textStyle, textAlign: TextAlign.center);
-      case 3  : return const Text("porque todo lo bueno viene de tres en tres", style: textStyle, textAlign: TextAlign.center);
-      case 4  : return const Text("genial para cenar con amigos y familia", style: textStyle, textAlign: TextAlign.center);
-      case 6  : return const Text("perfecto para disfrutar con una gran familia", style: textStyle, textAlign: TextAlign.center);
-      default : return const Text("selecciona la cantidad de personas", style: textStyle, textAlign: TextAlign.center);
+      case 2  : return const Text("ideal para salir de la rutina de cocinar", style: textStyle, textAlign: TextAlign.center);
+      case 3  : return const Text("nuestro plan mas popular para pasar la semana", style: textStyle, textAlign: TextAlign.center);
+      case 4  : return const Text("mantente al dia y ocupa tus noches en la semana", style: textStyle, textAlign: TextAlign.center);
+      case 5  : return const Text("conquista las cenas de lunes a viernes", style: textStyle, textAlign: TextAlign.center);
+      case 6  : return const Text("tacha ``planificar la cena´´ de tu lista", style: textStyle, textAlign: TextAlign.center);
+      default : return const Text("selecciona la cantidad de comidas que deseas recibir", style: textStyle, textAlign: TextAlign.center);
 
     }
   }

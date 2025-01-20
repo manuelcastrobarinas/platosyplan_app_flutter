@@ -1,3 +1,4 @@
+export 'package:platosyplan/presentation/screens/plan/create/two_select_meels_week_screen.dart';
 export 'package:platosyplan/presentation/screens/plan/create/one_select_plan_screen.dart';
 export 'package:platosyplan/presentation/screens/plan/plan_screen.dart';
 export 'package:platosyplan/presentation/screens/user/update_profile_screen.dart';

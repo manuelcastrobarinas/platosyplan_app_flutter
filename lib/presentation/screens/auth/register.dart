@@ -11,12 +11,14 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) { 
-    return const Column(
-      children: [
-        Expanded(flex: 3, child : _LogoAndTitle()),
-        Expanded(flex: 8, child : _LoginForm()),
-        SizedBox(height: 20.0)
-      ],
+    return const SafeArea(
+      child: Column(
+        children: [
+          Expanded(flex: 3, child : _LogoAndTitle()),
+          Expanded(flex: 8, child : _LoginForm()),
+          SizedBox(height: 20.0)
+        ],
+      ),
     ); 
   }
 }

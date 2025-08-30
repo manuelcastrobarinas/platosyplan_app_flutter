@@ -15,7 +15,7 @@ class HeaderComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      width : double.infinity,
+      width : (size.width > 600) ? size.width * 0.35 : double.infinity,
       height: size.height * 0.1,
       child : Align(
         alignment: Alignment.centerLeft,
@@ -30,7 +30,7 @@ class HeaderComponent extends StatelessWidget {
               ),
             ),
             Container(
-              width   : size.width  * 0.60,
+              width   : (size.width > 600) ? size.width * 0.25 : size.width  * 0.60,
               padding : const EdgeInsets.symmetric(horizontal: 14.0),
               child   : Image.asset('assets/platosyplanfondoNaranja.png', fit: BoxFit.fitWidth)
             ),

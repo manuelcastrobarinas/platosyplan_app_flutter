@@ -117,29 +117,32 @@ class _InformationContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const TextStyle sectionTitleStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 14, overflow: TextOverflow.ellipsis);
-    return SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _TitleRecipe(recipeTitle: recipe.name),
-            _CountryRecipe(countryRecipe: recipe.category),
-            _StadisticsRecipe(
-              calories  : recipe.nutricionalTable?.calories?.amount.toString() ?? 'Sin registrar',
-              difficulty: recipe.difficulty,
-              score     : recipe.calification.toString(),
-              time      : recipe.timeCreate.toString(),
-            ),
-            _DescriptionRecipe(description: recipe.description),
-            _Ingredients(sectionTitleStyle: sectionTitleStyle, ingredientList: recipe.ingredients!),
-            recipe.nutricionalTable != null ? _NutritionalTable(sectionTitleStyle: sectionTitleStyle, nutricionalTable: recipe.nutricionalTable!) : const Text("No se ha registrado la tabla nutricional"),
-            _Utensils(sectionTitleStyle: sectionTitleStyle, utensilios: recipe.utensils!),
-            const SizedBox(height: 10.0),
-            _ButtonToReditectSteps(sectionTitleStyle: sectionTitleStyle, stepsList: recipe.steps!),
-          ],
+    return SafeArea(
+      top: false,
+      child: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _TitleRecipe(recipeTitle: recipe.name),
+              _CountryRecipe(countryRecipe: recipe.category),
+              _StadisticsRecipe(
+                calories  : recipe.nutricionalTable?.calories?.amount.toString() ?? 'Sin registrar',
+                difficulty: recipe.difficulty,
+                score     : recipe.calification.toString(),
+                time      : recipe.timeCreate.toString(),
+              ),
+              _DescriptionRecipe(description: recipe.description),
+              _Ingredients(sectionTitleStyle: sectionTitleStyle, ingredientList: recipe.ingredients!),
+              recipe.nutricionalTable != null ? _NutritionalTable(sectionTitleStyle: sectionTitleStyle, nutricionalTable: recipe.nutricionalTable!) : const Text("No se ha registrado la tabla nutricional"),
+              _Utensils(sectionTitleStyle: sectionTitleStyle, utensilios: recipe.utensils!),
+              const SizedBox(height: 10.0),
+              _ButtonToReditectSteps(sectionTitleStyle: sectionTitleStyle, stepsList: recipe.steps!),
+            ],
+          ),
         ),
       ),
     );

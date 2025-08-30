@@ -7,6 +7,8 @@ import '../../../bloc/auth/auth_bloc.dart';
 import '../../../components/components.dart';
 import '../../../utils/legal/terms_and_conditions.dart';
 
+//TODO: EVALUAR SI NECESITO QUE LA PERSONA ESTE LOGUEADA PARA VER EL PERFIL
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 

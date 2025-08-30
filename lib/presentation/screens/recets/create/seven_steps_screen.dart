@@ -54,81 +54,85 @@ class _SevenStepsScreenState extends State<SevenStepsScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      body: SizedBox(
-      width: size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _TimeLine(stepsStatus: timelineStepsStatus, size: size),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 35.0),
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          const _TitleAndDescriptionSectionSteps(),
-                          const SizedBox(height: 20.0),
-                          ...List.generate(steps.length, (int index) => _buildStepCard(index: index)),
-                          const SizedBox(height: 20.0),
-                          BlocBuilder<RecipesBloc, RecipesState>(
-                            builder: (context, state) {
-                              return Row(
-                                children: <Widget> [
-                                  const Expanded(child: SizedBox()),
-                                  ButtonComponent(
-                                    minHeight : 45,
-                                    isLoading : state.isLoadingRequest,
-                                    minWidth  : size.width * 0.45,
-                                    text      : 'Crear receta',
-                                    function  : () async {
-                                      //VALDATE STEPS DATA
-                                      if (!_validateAllSteps()) return;
-
-                                      for (var image in imagesSteps) {
-                                        debugPrint('ESTAS ES LA IMAGEN  EN LA POSICION ${imagesSteps.indexOf(image)}:  ${image.path}');
-                                      }
-                                      
-                                      final RecipesBloc recipesBloc = BlocProvider.of<RecipesBloc>(context);
-                                      try {
-                                        //SEND DATA TO BLOC
-                                        recipesBloc.setIsLoadingRequest(true);
-                                        recipesBloc.setCreateStepsRecipe(steps);
-                                        recipesBloc.setCreateStepsImagesRecipe(imagesSteps);
-
-                                        //CREATE RECIPE
-                                        await recipesBloc.createRecipe();
-
-                                        if(!context.mounted) return;
-                                        Navigator.pushNamedAndRemoveUntil(context, 'navegation', (Route<dynamic> route) => false);
-                                      } catch (e) {
-                                        debugPrint('Error al crear la receta $e');
-                                        showScaffoldMessageComponent(context: context, message: e.toString());
-                                        // ScaffoldMessenger.of(context).showSnackBar(
-                                        //   SnackBar(content: Text(e.toString()))
-                                        // );
-                                      } finally {
-                                        recipesBloc.setIsLoadingRequest(false);
-                                      }
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ],
+      body: SafeArea(
+        child: SizedBox(
+        width: size.width,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: _TimeLine(stepsStatus: timelineStepsStatus, size: size),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget> [
+                            const _TitleAndDescriptionSectionSteps(),
+                            const SizedBox(height: 20.0),
+                            ...List.generate(steps.length, (int index) => _buildStepCard(index: index)),
+                            const SizedBox(height: 20.0),
+                            BlocBuilder<RecipesBloc, RecipesState>(
+                              builder: (context, state) {
+                                return Row(
+                                  children: <Widget> [
+                                    const Expanded(child: SizedBox()),
+                                    ButtonComponent(
+                                      minHeight : 45,
+                                      isLoading : state.isLoadingRequest,
+                                      minWidth  : size.width * 0.45,
+                                      text      : 'Crear receta',
+                                      function  : () async {
+                                        //VALDATE STEPS DATA
+                                        if (!_validateAllSteps()) return;
+        
+                                        for (var image in imagesSteps) {
+                                          debugPrint('ESTAS ES LA IMAGEN  EN LA POSICION ${imagesSteps.indexOf(image)}:  ${image.path}');
+                                        }
+                                        
+                                        final RecipesBloc recipesBloc = BlocProvider.of<RecipesBloc>(context);
+                                        try {
+                                          //SEND DATA TO BLOC
+                                          recipesBloc.setIsLoadingRequest(true);
+                                          recipesBloc.setCreateStepsRecipe(steps);
+                                          recipesBloc.setCreateStepsImagesRecipe(imagesSteps);
+        
+                                          //CREATE RECIPE
+                                          await recipesBloc.createRecipe();
+        
+                                          if(!context.mounted) return;
+                                          Navigator.pushNamedAndRemoveUntil(context, 'navegation', (Route<dynamic> route) => false);
+                                        } catch (e) {
+                                          debugPrint('Error al crear la receta $e');
+                                          showScaffoldMessageComponent(context: context, message: e.toString());
+                                          // ScaffoldMessenger.of(context).showSnackBar(
+                                          //   SnackBar(content: Text(e.toString()))
+                                          // );
+                                        } finally {
+                                          recipesBloc.setIsLoadingRequest(false);
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       )

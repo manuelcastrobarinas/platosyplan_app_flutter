@@ -23,25 +23,27 @@ class SelectedMeelsWeekPlanScreen extends StatelessWidget {
           )
         ],
       ),
-      body: SizedBox(
-        height: size.height,
-        child : Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const _ProgressBar(),
-            Padding(
-              padding : const EdgeInsets.symmetric(horizontal: 20.0),
-              child   : _Content(size: size),
-            ),
-            ButtonComponent(
-              text      : 'continuar',
-              minHeight : 50, 
-              minWidth  : size.width * 0.8, 
-              isLoading : false,
-              function  : () => Navigator.pushNamed(context, 'selectplan')
-            ),
-            const SizedBox()
-          ],
+      body: SafeArea(
+        child: SizedBox(
+          height: size.height,
+          child : Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const _ProgressBar(),
+              Padding(
+                padding : const EdgeInsets.symmetric(horizontal: 20.0),
+                child   : _Content(size: size),
+              ),
+              ButtonComponent(
+                text      : 'continuar',
+                minHeight : 50, 
+                minWidth  : size.width * 0.8, 
+                isLoading : false,
+                function  : () => Navigator.pushNamed(context, 'selectplan')
+              ),
+              const SizedBox()
+            ],
+          ),
         ),
       )
     );

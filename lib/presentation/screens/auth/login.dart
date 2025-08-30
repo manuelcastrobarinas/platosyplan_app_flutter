@@ -11,21 +11,23 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Expanded(
-          flex  : 5,
-          child : _LogoAndTitle()
-        ),
-        Expanded(
-          flex  : 7,
-          child : _LoginForm()
-        ),
-        Expanded(
-          flex  : 2,
-          child : _CreateAccount()
-        ),
-      ],
+    return const SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            flex  : 5,
+            child : _LogoAndTitle()
+          ),
+          Expanded(
+            flex  : 7,
+            child : _LoginForm()
+          ),
+          Expanded(
+            flex  : 2,
+            child : _CreateAccount()
+          ),
+        ],
+      ),
     );
   }
 }

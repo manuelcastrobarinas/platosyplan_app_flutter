@@ -64,18 +64,20 @@ class _FourSelectedIngredientsScreenState extends State<FourSelectedIngredientsS
             focusNode : FocusNode(),
             onKeyEvent: (_) {},
             child: Padding(
-              padding : const EdgeInsets.symmetric(horizontal: 30.0),
+              padding : const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
               child   : Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children : <Widget> [
-                  SizedBox(
-                    width: 60,
-                    child: TimelineVerticalComponent(stepsStatus: stepsStatus, heightToSpaceToNodes: size.height * 0.11),
+                  SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: SizedBox(
+                      width: 60,
+                      child: TimelineVerticalComponent(stepsStatus: stepsStatus, heightToSpaceToNodes: size.height * 0.11),
+                    ),
                   ),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Container(
-                        padding : const EdgeInsets.symmetric(vertical: 35.0),
+                      child: SizedBox(
                         width   : double.infinity,
                         child   : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

@@ -18,7 +18,7 @@ class TwoSelectImageScreen extends StatelessWidget {
       height: size.height,
       width: size.width,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +29,6 @@ class TwoSelectImageScreen extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 35.0),
                 width : double.infinity,
                 height: double.infinity,
                 color : Colors.white,

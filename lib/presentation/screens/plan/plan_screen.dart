@@ -25,7 +25,7 @@ class _UncreatedPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: size.height * 0.75,
+      height: size.height * 0.74,
       child : Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment : MainAxisAlignment.spaceBetween,

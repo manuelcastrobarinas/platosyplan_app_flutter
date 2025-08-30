@@ -17,7 +17,7 @@ class PlanView extends StatelessWidget {
         child : Column(
           children: [
             HeaderComponent(size: size, titleStyle: titleStyle),
-            const PlanScreen(),
+            const Expanded(child: PlanScreen()),
           ],
         ),
       )

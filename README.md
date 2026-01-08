@@ -7,7 +7,7 @@
 ![BLoC](https://img.shields.io/badge/State-BLoC-blueviolet)
 ![Material Design](https://img.shields.io/badge/UI-Material%20Design%203-blue)
 
-**Plataforma completa para gestionar recetas de cocina y planificar comidas semanales**
+**Plataforma para gestionar recetas de cocina y planificar comidas semanales**
 
 [Características](#-características-principales) • [Arquitectura](#-arquitectura) • [Instalación](#-instalación) • [Documentación](#-documentación-técnica)
 
@@ -15,9 +15,17 @@
 
 ---
 
+<img width="2048" height="1536" alt="project-f92bb46d-fc53-43e5-9d5a-29a418f0aae6" src="https://github.com/user-attachments/assets/2802d5c6-5e4b-4a5a-ac25-7f389c2dd239" />
+
+
+
 ## 🎯 ¿Qué es platosyplan?
 
 **platosyplan** es una aplicación móvil Flutter que funciona como una plataforma completa de gestión de recetas de cocina similar a HelloFresh o Cookpad. Permite a los usuarios descubrir recetas, crear sus propias recetas con ingredientes e información nutricional detallada, y planificar comidas semanales de forma organizada.
+
+
+<img width="2048" height="1536" alt="project-f92bb46d-fc53-43e5-9d5a-29a418f0aae6 (1)" src="https://github.com/user-attachments/assets/ca2f70c0-9d27-4169-a7b4-404f566d7273" />
+
 
 ### Propósito
 - 📖 Explorar recetas con instrucciones paso a paso
@@ -34,6 +42,8 @@
 - Almacenamiento seguro de tokens (Keychain/EncryptedSharedPreferences)
 - Validación automática de sesión
 - Gestión y actualización de perfil
+<img width="200" height="600" alt="1" src="https://github.com/user-attachments/assets/6d00fca4-6f10-4275-8cf7-411cb5f6aabc" />
+<img width="200" height="600" alt="2" src="https://github.com/user-attachments/assets/5285b089-3f54-47fe-b646-91032a91fc01" />
 
 ### 2. 📚 Gestión de Recetas
 
@@ -43,10 +53,18 @@
 - Detalle completo: ingredientes, utensilios, tabla nutricional
 - Sistema de calificación
 
+
+<img width="200" height="600" alt="4" src="https://github.com/user-attachments/assets/313bc6d8-4d12-4cf4-bc41-444edd2aebec" />
+<img width="200" height="600" alt="12" src="https://github.com/user-attachments/assets/65141c10-7afa-4a4b-8e45-f23ddc7a7420" />
+<img width="200" height="600" alt="13" src="https://github.com/user-attachments/assets/e722ed8e-8270-466c-af8d-945c734216c4" />
+<img width="200" height="600" alt="15" src="https://github.com/user-attachments/assets/c3bdea18-6c48-447a-b727-dc80910b90a7" />
+
+
 #### Mis Recetas
 - Lista personal de recetas creadas
 - Activar/desactivar visibilidad pública
 - Gestión completa (editar, eliminar)
+<img width="200" height="600" alt="6" src="https://github.com/user-attachments/assets/488fbcd2-2dc7-48b8-9c03-2643df854063" />
 
 #### Crear Recetas (Proceso de 7 Pasos)
 1. **Nombre y descripción** - Información básica
@@ -56,6 +74,11 @@
 5. **Utensilios** - Equipamiento necesario
 6. **Tabla nutricional** - 9 valores nutricionales (calorías, grasas, proteínas, etc.)
 7. **Pasos de cocina** - Instrucciones detalladas con imágenes
+<img width="200" height="600" alt="11" src="https://github.com/user-attachments/assets/9d10c1d7-1173-4957-8ee9-559b0352f48d" />
+<img width="200" height="600" alt="10" src="https://github.com/user-attachments/assets/619f4b27-d449-4a70-b344-41e3c32c2514" />
+<img width="200" height="600" alt="9" src="https://github.com/user-attachments/assets/3bb8cae0-57b8-4fb5-8060-c021a3dd19aa" />
+<img width="200" height="600" alt="8" src="https://github.com/user-attachments/assets/a5f3306c-0cef-4292-b5b6-138a3fa7dfa9" />
+
 
 ### 3. 🍳 Pasos de Cocina Interactivos
 - Carrusel horizontal con navegación swipe
@@ -63,17 +86,23 @@
 - Ingredientes y utensilios específicos por paso
 - Sincronización automática entre vistas
 
+<img width="200" height="600" alt="7" src="https://github.com/user-attachments/assets/cd6f475e-f6a1-4fee-b73f-5db1a43eb501" />
+
 ### 4. 📅 Planificación de Comidas
 - Selector de número de personas (1-5+)
 - Comidas por semana configurables (3, 5, 7, 14, 21)
 - Calendario semanal con recetas asignadas
 - Vista organizada por días y tipo de comida
 
+<img width="200" height="600" alt="3" src="https://github.com/user-attachments/assets/fcfad249-7c64-4dcd-b0a8-b8a0d2488c4b" />
+<img width="200" height="600" alt="16" src="https://github.com/user-attachments/assets/777adb76-8a9f-4167-979d-2371b0252e04" />
+
 ### 5. 👤 Gestión de Perfil
 - Información del usuario (nombre, email, teléfono)
 - Edición de datos personales
 - Estadísticas de uso
 - Cierre de sesión seguro
+<img width="300" height="700" alt="5" src="https://github.com/user-attachments/assets/abf8f825-bff9-44b3-82f2-5ecdbc7a2148" />
 
 ---
 
@@ -714,28 +743,6 @@ flutter analyze                  # Análisis estático
 
 ---
 
-## 📞 Soporte y Contacto
-
-Para problemas, sugerencias o contribuciones:
-- 📧 Email: [contacto]
-- 🐛 Issues: [GitHub Issues]
-- 📖 Wiki: [Documentación adicional]
-
----
-
-## 📄 Licencia
-
-[Especificar licencia]
-
----
-
-## 🙏 Agradecimientos
-
-Desarrollado con ❤️ usando Flutter
-
-**Stack**: Flutter • Dart • BLoC • Material Design 3 • Dio • Secure Storage
-
----
 
 <div align="center">
 

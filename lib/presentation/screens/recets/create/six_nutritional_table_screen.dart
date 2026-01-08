@@ -30,23 +30,25 @@ class _SixNutritionalTableScreenState extends State<SixNutritionalTableScreen> {
     return SizedBox(
       width: size.width,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: SizedBox(
               width: 60,
-              child: TimelineVerticalComponent(
-                stepsStatus: stepsStatus, 
-                heightToSpaceToNodes: size.height * 0.11
+                child: TimelineVerticalComponent(
+                  stepsStatus: stepsStatus, 
+                  heightToSpaceToNodes: size.height * 0.11
+                ),
               ),
             ),
             Expanded(
               child: SingleChildScrollView(
                 child: BlocBuilder<RecipesBloc, RecipesState>(
                   builder: (context, state) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(vertical: 35.0),
+                    return SizedBox(
                       width: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

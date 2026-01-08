@@ -1,4 +1,6 @@
-export 'package:platosyplan/components/navegation/drawer_personal.dart';
+export 'package:platosyplan/components/select/select_amount_card.dart';
+export 'package:platosyplan/components/ui/header_component.dart';
+export 'package:platosyplan/components/navegation/drawer_component.dart';
 export 'package:platosyplan/components/profile/profile_menu.dart';
 export 'package:platosyplan/components/progress/slidershow_component.dart';
 export 'package:platosyplan/components/progress/timeline_vertical_component.dart';

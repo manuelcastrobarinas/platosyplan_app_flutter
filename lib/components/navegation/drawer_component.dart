@@ -3,8 +3,8 @@ import 'package:platosyplan/services/services.dart';
 
 import '../../utils/legal/terms_and_conditions.dart';
 
-class DrawerPersonal extends StatelessWidget {
-  const DrawerPersonal({super.key});
+class DrawerComponent extends StatelessWidget {
+  const DrawerComponent({super.key});
 
   @override
   Widget build(BuildContext context) {

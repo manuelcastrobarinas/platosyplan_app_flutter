@@ -7,10 +7,10 @@ class AuthorizationInterceptor extends Interceptor {
   AuthorizationInterceptor();
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {    
-    final geToken = await AuthService.getToken();
-    debugPrint("token del usuario $geToken");
+    final getToken = await AuthService.getToken();
+    debugPrint("token del usuario $getToken");
     options.headers.addAll({
-      'Authorization': 'Bearer $geToken'
+      'Authorization': 'Bearer $getToken'
     });
 
     super.onRequest(options, handler);
